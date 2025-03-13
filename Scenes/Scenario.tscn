@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c23tmfj3brgf0"]
+[gd_scene load_steps=30 format=4 uid="uid://c23tmfj3brgf0"]
 
 [ext_resource type="Texture2D" uid="uid://bpijjwkdkgjrt" path="res://Assets/Scenario/Tileset/Tileset.png" id="1_lk46d"]
 [ext_resource type="Texture2D" uid="uid://c47xka74psrix" path="res://Assets/Scenario/Background/1.png" id="2_4d6ai"]
@@ -778,6 +778,12 @@ texture = ExtResource("7_4bjid")
 [sub_resource type="TileSet" id="TileSet_ub4tj"]
 sources/0 = SubResource("TileSetAtlasSource_4bjid")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ucutq"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4bjid"]
+normal = Vector2(-1, 0)
+
 [node name="Map" type="Node"]
 
 [node name="Ground" type="TileMapLayer" parent="."]
@@ -845,7 +851,7 @@ position = Vector2(338, -32)
 sprite_frames = SubResource("SpriteFrames_adngp")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.407746
+frame_progress = 0.0686364
 
 [node name="Flag2" type="AnimatedSprite2D" parent="."]
 z_index = 10
@@ -853,9 +859,25 @@ position = Vector2(723, -29)
 sprite_frames = SubResource("SpriteFrames_adngp")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.0702301
+frame_progress = 0.731112
 
 [node name="Objects" type="TileMapLayer" parent="."]
 z_index = 6
 tile_map_data = PackedByteArray("AAAtAP3/AAABAAMAAAAsAP3/AAAAAAMAAAAtAP7/AAAAAAQAABAtAP//AAAAAAUAABAsAP7/AAAAAAQAAAAsAP//AAAAAAUAAAAmAPz/AAAIAAIAAAAmAP3/AAAIAAMAAAAnAPv/AAAJAAEAAAAnAPz/AAAJAAIAAAAnAP3/AAAJAAMAAAAnAP7/AAAJAAQAAAAnAP//AAAJAAUAAAAoAPv/AAAKAAEAAAAoAPz/AAAKAAIAAAAoAP3/AAAKAAMAAAAoAP7/AAAKAAQAAAAoAP//AAAKAAUAAAApAPv/AAALAAEAAAApAPz/AAALAAIAAAApAP3/AAALAAMAAAApAP7/AAALAAQAAAApAP//AAALAAUAAAAqAPv/AAAMAAEAAAAqAPz/AAAMAAIAAAAqAP3/AAAMAAMAAAAqAP7/AAAMAAQAAAAqAP//AAAMAAUAAAArAPz/AAANAAIAAAAxAP3/AAAAAAMAABAwAP3/AAABAAMAABAxAP7/AAAAAAQAABAwAP7/AAABAAQAABAxAP//AAAAAAUAABARAP3/AAAAAAMAAAARAP7/AAAAAAQAAAARAP//AAAAAAUAAAASAP3/AAABAAMAAAASAP7/AAABAAQAAAA=")
 tile_set = SubResource("TileSet_ub4tj")
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(-178, -89)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+position = Vector2(1, 0)
+shape = SubResource("WorldBoundaryShape2D_ucutq")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(1164, -58)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+position = Vector2(0, 2)
+shape = SubResource("WorldBoundaryShape2D_4bjid")
