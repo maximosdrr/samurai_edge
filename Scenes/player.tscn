@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://cw07r2ik6qxq3"]
 
-[ext_resource type="Script" uid="uid://bfga21r58qtuc" path="res://Scripts/Player/main.gd" id="1_6t5aa"]
+[ext_resource type="Script" uid="uid://bfga21r58qtuc" path="res://Scripts/Character/main.gd" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bvqkf3kxw1til" path="res://Assets/Characters/Character2/IDLE.png" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://coe78t3b3tm7t" path="res://Assets/Characters/Character2/JUMP.png" id="4_fkybt"]

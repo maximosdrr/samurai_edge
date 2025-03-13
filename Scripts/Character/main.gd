@@ -4,16 +4,16 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $HitBox # A área de ataque
 
-var state: PlayerState
-var animator: PlayerAnimator
-var movement: PlayerMovement
-var attack: PlayerAttack
+var state: CharacterState
+var animator: CharacterAnimator
+var movement: CharacterMovement
+var attack: CharacterAttack
 
 func _ready():
-	state = PlayerState.new()
-	animator = PlayerAnimator.new(animated_sprite, self)
-	movement = PlayerMovement.new(self)
-	attack = PlayerAttack.new(self)
+	state = CharacterState.new()
+	animator = CharacterAnimator.new(animated_sprite, self)
+	movement = CharacterMovement.new(self)
+	attack = CharacterAttack.new(self)
 	
 func _physics_process(delta: float) -> void:
 	movement.process_movement(delta)
