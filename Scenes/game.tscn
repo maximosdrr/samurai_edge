@@ -7,7 +7,8 @@
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ebmjs")]
-position = Vector2(54, -13)
+z_index = 100
+position = Vector2(357, -16)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(81, -44)
@@ -16,4 +17,5 @@ zoom = Vector2(2.5, 2.5)
 [node name="Map" parent="." instance=ExtResource("2_qxrlw")]
 
 [node name="Enemy" parent="." instance=ExtResource("3_wrm1d")]
-position = Vector2(197, -33)
+z_index = 100
+position = Vector2(702, -30)
