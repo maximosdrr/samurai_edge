@@ -3,31 +3,34 @@ extends Node
 
 class_name CharacterMovement
 
-var speed = 200
-var jump_force = -400
+var speed
+var jump_force
 var character: CharacterBody2D
 var hitbox: CollisionShape2D
 
-func _init(body: CharacterBody2D):
+func _init(body: CharacterBody2D, speed: int, jump_force: int):
 	character = body
 	hitbox = character.get_node("HitBox").get_node("Area")
-
-func process_movement(delta):
-	var direction := Input.get_axis("move_left", "move_right")
+	self.speed = speed
+	self.jump_force = jump_force
 	
+func move_x(direction: int):
 	if direction:
 		character.velocity.x = direction * speed
 	else:
 		character.velocity.x = move_toward(character.velocity.x, 0, speed)
-
-	if Input.is_action_just_pressed("jump") and character.is_on_floor():
-		character.velocity.y = jump_force
-	
-	if not character.is_on_floor():
-		character.velocity += character.get_gravity()  * delta
-		
 	_update_state()
 	character.move_and_slide()
+
+func jump(delta: float):
+	character.velocity.y = jump_force
+	_update_state()
+	character.move_and_slide()
+
+func add_gravity(delta: float):
+	if not character.is_on_floor():
+		character.velocity += character.get_gravity()  * delta
+	
 
 func _flip_hitbox(direction: CharacterState.Direction):
 	if direction == CharacterState.Direction.Right:
