@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkiljxpw37btn"]
+
+[ext_resource type="PackedScene" uid="uid://cw07r2ik6qxq3" path="res://Scenes/player.tscn" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Scenario.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://dbwjplicsh3u2" path="res://Scenes/Enemy.tscn" id="3_wrm1d"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ebmjs")]
+position = Vector2(54, -13)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(81, -44)
+zoom = Vector2(2.5, 2.5)
+
+[node name="Map" parent="." instance=ExtResource("2_qxrlw")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_wrm1d")]
+position = Vector2(197, -33)
