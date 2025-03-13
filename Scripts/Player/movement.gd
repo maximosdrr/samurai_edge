@@ -6,9 +6,11 @@ class_name PlayerMovement
 var speed = 200
 var jump_force = -400
 var player: CharacterBody2D
+var hitbox: CollisionShape2D
 
 func _init(body: CharacterBody2D):
 	player = body
+	hitbox = player.get_node("HitBox").get_node("Area")
 
 func process_movement(delta):
 	var direction := Input.get_axis("move_left", "move_right")
@@ -34,9 +36,11 @@ func _update_state():
 		player.state.change_state(PlayerState.States.IDLE)
 	if player.velocity.x > 0 and player.is_on_floor():
 		player.state.change_direction(PlayerState.Direction.Right)
+		hitbox.position.x = 25.5
 		player.state.change_state(PlayerState.States.RUNNING)
 	if player.velocity.x < 0 and player.is_on_floor():
 		player.state.change_direction(PlayerState.Direction.Left)
+		hitbox.position.x = -23.5
 		player.state.change_state(PlayerState.States.RUNNING)
 	elif player.velocity.y < 0:
 		player.state.change_state(PlayerState.States.JUMPING)

@@ -10,6 +10,7 @@ func _init(player_body: CharacterBody2D):
 	player.hitbox.connect("body_entered", Callable(self, "_on_hit_detected"))
 	player.animated_sprite.connect("animation_finished", Callable(self, "_on_attack_animation_finished"))
 	self.collisionArea = player.hitbox.get_node("Area")
+
 func attack():
 	player.state.change_state(PlayerState.States.ATTACKING)
 	collisionArea.set_deferred("disabled", false)
