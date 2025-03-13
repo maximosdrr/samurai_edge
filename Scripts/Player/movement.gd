@@ -29,6 +29,12 @@ func process_movement(delta):
 	_update_state()
 	player.move_and_slide()
 
+func _flip_hitbox(direction: PlayerState.Direction):
+	if direction == PlayerState.Direction.Right:
+		hitbox.position.x = 25.5
+	else:
+		hitbox.position.x = -23.5
+
 func _update_state():
 	if player.state.current_state == PlayerState.States.ATTACKING:
 		return
@@ -36,11 +42,11 @@ func _update_state():
 		player.state.change_state(PlayerState.States.IDLE)
 	if player.velocity.x > 0 and player.is_on_floor():
 		player.state.change_direction(PlayerState.Direction.Right)
-		hitbox.position.x = 25.5
+		_flip_hitbox(PlayerState.Direction.Right)
 		player.state.change_state(PlayerState.States.RUNNING)
 	if player.velocity.x < 0 and player.is_on_floor():
 		player.state.change_direction(PlayerState.Direction.Left)
-		hitbox.position.x = -23.5
+		_flip_hitbox(PlayerState.Direction.Left)
 		player.state.change_state(PlayerState.States.RUNNING)
 	elif player.velocity.y < 0:
 		player.state.change_state(PlayerState.States.JUMPING)
