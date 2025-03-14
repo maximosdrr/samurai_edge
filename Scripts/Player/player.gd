@@ -14,7 +14,8 @@ func _init():
 
 func _ready():
 	super._ready()
-	PlayerCameraShaker.new(self, camera)
+	var instance = PlayerCameraShaker.new(self, camera)
+	add_child(instance)
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")

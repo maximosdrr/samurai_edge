@@ -7,13 +7,22 @@ var character: CharacterBody2D
 var camera: Camera2D
 
 func _init(character: CharacterBody2D, camera: Camera2D):
-	character.state.connect("character_state_change", Callable(self, "_handle_state_change"))
 	self.character = character
 	self.camera = camera
+	character.state.connect("character_state_change", Callable(self, "_handle_take_damage"))
 
-func _handle_state_change(new_state):
+func _ready():
+	character.attack.connect("attack_parried_detected", Callable(self, "handle_parry_attack"))
+	print((character.attack.attack_parried_detected as Signal).get_connections())
+	print(is_inside_tree())
+
+func handle_parry_attack():
+	print("hey!!")
+	
+
+func _handle_take_damage(new_state):
 	if new_state == CharacterState.States.RECEIVING_DAMAGE and !is_shaking:
-		_shake_lvl1()
+		_shake_lvl2()
 	elif new_state != CharacterState.States.RECEIVING_DAMAGE and is_shaking:
 		_reset_camera()
 
@@ -43,7 +52,7 @@ func _shake_lvl1():
 	_shake(1, 0.4, 2.0)
 
 func _shake_lvl2():
-	_shake(2, 0.6, 6.0)
+	_shake(2, 0.4, 5.0)
 
 func _shake_lvl3():
 	_shake(3, 1.0, 10.0)

@@ -9,6 +9,7 @@ var timer: Timer
 var attack_duration = 0.3
 
 var characters_in_attack_area: Array[Node2D] = []
+signal attack_parried_detected
 
 func _init(body: CharacterBody2D):
 	character = body
@@ -42,6 +43,9 @@ func _commit_attack():
 	for chr in characters_in_attack_area:
 		if chr.state.current_state != CharacterState.States.PARRYING:
 			chr.receive_damage.receive(character.attributes.attack_damage)
+		else:
+			print("Connections:", attack_parried_detected.get_connections().size())
+			attack_parried_detected.emit()
 	characters_in_attack_area.clear()
 	collisionArea.set_deferred("disabled", true)
 	character.state.change_state(CharacterState.States.IDLE)
