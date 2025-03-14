@@ -10,7 +10,7 @@
 z_index = 100
 position = Vector2(357, -16)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera" type="Camera2D" parent="Player"]
 position = Vector2(81, -88)
 zoom = Vector2(2.5, 2.5)
 

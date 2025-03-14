@@ -2,14 +2,20 @@ extends Character
 
 class_name Player
 
-var jump_force = -400
+var jump_force = -250
 var speed = 200
 var attack_damage = 10
 var health = 1000
 
+@onready var camera: Camera2D = $Camera
+
 func _init():
 	super(jump_force, speed, attack_damage, health)
 
+func _ready():
+	super._ready()
+	PlayerCameraShaker.new(self, camera)
+	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	

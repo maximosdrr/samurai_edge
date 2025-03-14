@@ -31,7 +31,7 @@ func change_state(new_state):
 	else:
 		current_state = new_state
 		self.character_state_change.emit(self.current_state)
-
+		
 func change_direction(direction):
 	current_direction = direction
 	character_direction_change.emit(direction)
