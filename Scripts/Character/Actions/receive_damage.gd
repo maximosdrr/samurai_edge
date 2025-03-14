@@ -11,8 +11,9 @@ func _init(character: CharacterBody2D):
 	animated_sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
 
 	
-func receive():
+func receive(amount):
 	character.state.change_state(CharacterState.States.RECEIVING_DAMAGE)
+	character.attributes.decreaseHealth(amount)
 
 func _on_animation_finished():
 	if animated_sprite.animation == "receive_damage":

@@ -24,6 +24,8 @@ func _play_animation(state: CharacterState.States):
 			animation_player.play("attack")
 		CharacterState.States.RECEIVING_DAMAGE:
 			animation_player.play("receive_damage")
+		CharacterState.States.DEAD:
+			animation_player.play("die")
 			
 func _flip_sprite(direction: CharacterState.Direction):
 	animation_player.flip_h = true if direction == CharacterState.Direction.Left else false

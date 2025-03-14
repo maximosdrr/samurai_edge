@@ -8,11 +8,11 @@ var jump_force
 var character: CharacterBody2D
 var hitbox: CollisionShape2D
 
-func _init(body: CharacterBody2D, speed: int, jump_force: int):
+func _init(body: CharacterBody2D):
 	character = body
 	hitbox = character.get_node("HitBox").get_node("Area")
-	self.speed = speed
-	self.jump_force = jump_force
+	self.speed = character.attributes.speed
+	self.jump_force = character.attributes.jump_force
 	
 func move_x(direction: int):
 	if direction:

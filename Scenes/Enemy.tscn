@@ -260,9 +260,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hp3pd")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,

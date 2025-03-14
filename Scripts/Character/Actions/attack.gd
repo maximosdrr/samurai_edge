@@ -22,7 +22,7 @@ func attack():
 func _on_hit_detected(body: Node2D):
 	for group in body.get_groups():
 		if group == 'character':
-			body.receive_damage.receive()
+			body.receive_damage.receive(character.attributes.attack_damage)
 
 func _on_attack_animation_finished():
 	if animated_sprite.animation == "attack":

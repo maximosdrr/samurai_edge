@@ -3,7 +3,7 @@ extends Node
 
 class_name CharacterState
 
-enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE }
+enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE, DEAD }
 enum Direction { Left, Right }
 
 var current_state = States.IDLE
@@ -13,6 +13,8 @@ signal character_state_change
 signal character_direction_change
 
 func change_state(new_state):
+	if current_state == States.DEAD:
+		return
 	if new_state == States.RUNNING and current_state == States.RUNNING:
 		return
 	elif new_state == States.IDLE and current_state == States.IDLE:
