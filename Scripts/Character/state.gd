@@ -3,15 +3,19 @@ extends Node
 
 class_name CharacterState
 
-enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE, DEAD }
+enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE, DEAD, PARRYING }
 enum Direction { Left, Right }
 
 var current_state = States.IDLE
 var current_direction = Direction.Right
 var _state_change_is_blocked = false
+var character: CharacterBody2D
 
 signal character_state_change
 signal character_direction_change
+
+func _init(character: CharacterBody2D):
+	self.character = character
 
 func change_state(new_state):
 	if _state_change_is_blocked:

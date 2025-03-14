@@ -4,7 +4,7 @@ class_name Player
 
 var jump_force = -400
 var speed = 200
-var attack_damage = 100
+var attack_damage = 10
 var health = 1000
 
 func _init():
@@ -22,3 +22,5 @@ func _physics_process(delta: float) -> void:
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
 		attack.attack()
+	if Input.is_action_just_pressed("parry"):
+		parry.parry()

@@ -1,11 +1,11 @@
-[gd_scene load_steps=75 format=3 uid="uid://dbwjplicsh3u2"]
+[gd_scene load_steps=74 format=3 uid="uid://dbwjplicsh3u2"]
 
 [ext_resource type="Texture2D" uid="uid://cc20vnl3wsx1v" path="res://Assets/Characters/Character1/IDLE.png" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://cur3kjymx07md" path="res://Scripts/Enemy/enemy.gd" id="1_mo1ky"]
 [ext_resource type="Texture2D" uid="uid://b1vbr565sn6st" path="res://Assets/Characters/Character1/ATTACK 1.png" id="2_kpr8r"]
 [ext_resource type="Texture2D" uid="uid://ydv4ioejww3" path="res://Assets/Characters/Character1/HURT.png" id="2_wovta"]
+[ext_resource type="Texture2D" uid="uid://dc0mp8jygfqx2" path="res://Assets/Characters/Character1/ATTACK 3.png" id="3_idouy"]
 [ext_resource type="Texture2D" uid="uid://b5bj34gopwo6y" path="res://Assets/Characters/Character1/DEATH.png" id="3_mo1ky"]
-[ext_resource type="Texture2D" uid="uid://skk5mn8lxgf2" path="res://Assets/Characters/Character1/ATTACK 2.png" id="3_uoxpr"]
 [ext_resource type="Texture2D" uid="uid://bghv2jnoj3d54" path="res://Assets/Characters/Character1/JUMP.png" id="4_1exfc"]
 [ext_resource type="Texture2D" uid="uid://dbfswbimwkl0i" path="res://Assets/Characters/Character1/RUN.png" id="6_6bs3c"]
 [ext_resource type="Texture2D" uid="uid://cnd2emouhqhq1" path="res://Assets/Characters/Character1/DEFEND.png" id="7_idouy"]
@@ -39,32 +39,28 @@ atlas = ExtResource("2_kpr8r")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gopdq"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cno1d"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(96, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0yfvf"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(192, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_62jqb"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(288, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh623"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvjss"]
-atlas = ExtResource("3_uoxpr")
+atlas = ExtResource("3_idouy")
 region = Rect2(480, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8a5qp"]
-atlas = ExtResource("3_uoxpr")
-region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xju7k"]
 atlas = ExtResource("3_mo1ky")
@@ -284,7 +280,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -304,13 +300,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dvjss")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8a5qp")
 }],
 "loop": false,
 "name": &"attack_1",
-"speed": 12.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -500,7 +493,7 @@ script = ExtResource("1_mo1ky")
 sprite_frames = SubResource("SpriteFrames_uihya")
 animation = &"attack_1"
 autoplay = "idle"
-frame = 6
+frame = 5
 frame_progress = 1.0
 flip_h = true
 
@@ -514,3 +507,11 @@ shape = SubResource("RectangleShape2D_wovta")
 position = Vector2(-22, 15)
 shape = SubResource("RectangleShape2D_xeo28")
 disabled = true
+
+[node name="attack_timer" type="Timer" parent="."]
+
+[node name="parry_timer" type="Timer" parent="."]
+wait_time = 0.7
+
+[node name="receive_damage_timer" type="Timer" parent="."]
+wait_time = 0.5

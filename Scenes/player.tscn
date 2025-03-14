@@ -407,10 +407,8 @@ script = ExtResource("1_fkybt")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
-animation = &"parry"
+animation = &"attack_1"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="HurtBox" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -0.5)
@@ -422,3 +420,15 @@ shape = SubResource("RectangleShape2D_v0iea")
 position = Vector2(27, -2)
 shape = SubResource("RectangleShape2D_fkybt")
 disabled = true
+
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="parry_timer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="receive_damage_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

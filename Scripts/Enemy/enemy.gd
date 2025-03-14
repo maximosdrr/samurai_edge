@@ -4,7 +4,7 @@ class_name Enemy
 
 var jump_force = -400
 var speed = 200
-var attack_damage = 100
+var attack_damage = 10
 var health = 1000
 
 var counter = 0
@@ -17,6 +17,6 @@ func _physics_process(delta: float) -> void:
 	
 
 func _process(delta):
-	if counter % 30 == 0:
+	if counter % 120 == 0:
 		attack.attack()
 	counter += 1

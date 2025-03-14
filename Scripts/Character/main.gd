@@ -19,6 +19,7 @@ var _health
 var attack: CharacterAttack
 var receive_damage: CharacterReceiveDamage
 var die: CharacterDie
+var parry: CharacterParry
 
 func _init(jump_force, speed, attack_damage, health):
 	self._jump_force = jump_force
@@ -28,7 +29,7 @@ func _init(jump_force, speed, attack_damage, health):
 
 func _ready():
 	#core
-	state = CharacterState.new()
+	state = CharacterState.new(self)
 	animator = CharacterAnimator.new(self)
 	attributes = CharacterAttributes.new(self, _speed, _jump_force, _attack_damage, _health)
 	movement = CharacterMovement.new(self)
@@ -37,4 +38,5 @@ func _ready():
 	receive_damage = CharacterReceiveDamage.new(self)
 	attack = CharacterAttack.new(self)
 	die = CharacterDie.new(self)
+	parry = CharacterParry.new(self)
 	
