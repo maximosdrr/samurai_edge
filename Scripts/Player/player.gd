@@ -4,7 +4,7 @@ class_name Player
 
 var jump_force = -400
 var speed = 200
-var attack_damage = 300
+var attack_damage = 100
 var health = 1000
 
 func _init():

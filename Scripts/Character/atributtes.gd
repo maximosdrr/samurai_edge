@@ -17,6 +17,7 @@ func _init(character, speed, jump_force, attack_damage, health):
 
 func decreaseHealth(amount: float):
 	self.health -= amount
+	print("Character ", character.name, " health: ", self.health)
 	
 	if(self.health <= 0):
 		character.die.execute()

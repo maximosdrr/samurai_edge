@@ -8,11 +8,14 @@ enum Direction { Left, Right }
 
 var current_state = States.IDLE
 var current_direction = Direction.Right
+var _state_change_is_blocked = false
 
 signal character_state_change
 signal character_direction_change
 
 func change_state(new_state):
+	if _state_change_is_blocked:
+		return
 	if current_state == States.DEAD:
 		return
 	if new_state == States.RUNNING and current_state == States.RUNNING:
@@ -28,3 +31,6 @@ func change_state(new_state):
 func change_direction(direction):
 	current_direction = direction
 	character_direction_change.emit(direction)
+
+func set_state_change_is_blocked(value: bool):
+	_state_change_is_blocked = value

@@ -21,7 +21,8 @@ func _play_animation(state: CharacterState.States):
 		CharacterState.States.JUMPING:
 			animation_player.play("jump")
 		CharacterState.States.ATTACKING:
-			animation_player.play("attack")
+			var animation = _choose_animation(["attack", "attack_1"])
+			animation_player.play(animation)
 		CharacterState.States.RECEIVING_DAMAGE:
 			animation_player.play("receive_damage")
 		CharacterState.States.DEAD:
@@ -29,3 +30,6 @@ func _play_animation(state: CharacterState.States):
 			
 func _flip_sprite(direction: CharacterState.Direction):
 	animation_player.flip_h = true if direction == CharacterState.Direction.Left else false
+
+func _choose_animation(animations: Array[String]):
+	return animations[randi() % animations.size()]

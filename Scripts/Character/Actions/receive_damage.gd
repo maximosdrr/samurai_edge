@@ -13,8 +13,11 @@ func _init(character: CharacterBody2D):
 	
 func receive(amount):
 	character.state.change_state(CharacterState.States.RECEIVING_DAMAGE)
+	character.state.set_state_change_is_blocked(true)
 	character.attributes.decreaseHealth(amount)
+	
 
 func _on_animation_finished():
 	if animated_sprite.animation == "receive_damage":
+		character.state.set_state_change_is_blocked(false)
 		character.state.change_state(CharacterState.States.IDLE)

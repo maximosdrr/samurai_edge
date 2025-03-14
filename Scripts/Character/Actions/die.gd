@@ -10,6 +10,7 @@ func _init(character: CharacterBody2D):
 	self.animated_sprite = character.get_node("animated_sprite")
 	
 func execute():
+	character.state.set_state_change_is_blocked(false)
 	character.state.change_state(CharacterState.States.DEAD)
 	character.get_node("HurtBox").set_deferred("disabled", true)
 	character.get_node("HitBox").set_deferred("disabled", true)
