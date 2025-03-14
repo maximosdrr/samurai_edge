@@ -6,7 +6,7 @@ var character: CharacterBody2D
 var animated_sprite: AnimatedSprite2D
 
 var timer: Timer
-var parry_duration = 0.4
+var parry_duration = 0.2
 
 func _init(body: CharacterBody2D):
 	character = body

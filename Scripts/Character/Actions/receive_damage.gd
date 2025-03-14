@@ -5,7 +5,7 @@ class_name CharacterReceiveDamage
 var character: CharacterBody2D
 var animated_sprite: AnimatedSprite2D
 var timer: Timer
-var receive_damage_duration = 0.6
+var receive_damage_duration = 0.3
 
 func _init(character: CharacterBody2D):
 	self.character = character

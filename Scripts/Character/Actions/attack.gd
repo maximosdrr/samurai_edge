@@ -6,7 +6,7 @@ var character: CharacterBody2D
 var collisionArea: CollisionShape2D
 var hitbox: Area2D
 var timer: Timer
-var attack_duration = 0.6
+var attack_duration = 0.3
 
 var characters_in_attack_area: Array[Node2D] = []
 
