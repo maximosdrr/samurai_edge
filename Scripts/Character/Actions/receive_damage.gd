@@ -19,6 +19,7 @@ func _init(character: CharacterBody2D):
 	
 func receive(amount):
 	character.state.change_state(CharacterState.States.RECEIVING_DAMAGE)
+	character.attack.cancel_attack()
 	timer.start()
 	character.state.set_state_change_is_blocked(true)
 	character.attributes.decreaseHealth(amount)

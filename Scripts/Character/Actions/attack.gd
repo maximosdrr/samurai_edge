@@ -40,8 +40,7 @@ func cancel_attack():
 
 func _commit_attack():
 	for chr in characters_in_attack_area:
-		if chr.state.current_state != CharacterState.States.PARRYING and \
-		character.state.current_state != CharacterState.States.RECEIVING_DAMAGE:
+		if chr.state.current_state != CharacterState.States.PARRYING:
 			chr.receive_damage.receive(character.attributes.attack_damage)
 	characters_in_attack_area.clear()
 	collisionArea.set_deferred("disabled", true)
