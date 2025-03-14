@@ -507,11 +507,3 @@ shape = SubResource("RectangleShape2D_wovta")
 position = Vector2(-22, 15)
 shape = SubResource("RectangleShape2D_xeo28")
 disabled = true
-
-[node name="attack_timer" type="Timer" parent="."]
-
-[node name="parry_timer" type="Timer" parent="."]
-wait_time = 0.7
-
-[node name="receive_damage_timer" type="Timer" parent="."]
-wait_time = 0.5

@@ -420,15 +420,3 @@ shape = SubResource("RectangleShape2D_v0iea")
 position = Vector2(27, -2)
 shape = SubResource("RectangleShape2D_fkybt")
 disabled = true
-
-[node name="attack_timer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="parry_timer" type="Timer" parent="."]
-wait_time = 0.7
-one_shot = true
-
-[node name="receive_damage_timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
