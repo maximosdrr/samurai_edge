@@ -241,7 +241,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yh6i2")
 }],
-"loop": true,
+"loop": false,
 "name": &"receive_damage",
 "speed": 5.0
 }, {
@@ -283,9 +283,8 @@ script = ExtResource("1_fkybt")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
-animation = &"receive_damage"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.679276
 
 [node name="HurtBox" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -0.5)

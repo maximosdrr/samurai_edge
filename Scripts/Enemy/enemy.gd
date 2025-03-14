@@ -12,6 +12,7 @@ func _init():
 	
 func _physics_process(delta: float) -> void:
 	movement.add_gravity(delta);
+	attack.attack()
 
 func _process(delta):
 	pass

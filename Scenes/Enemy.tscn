@@ -228,7 +228,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l2hgq")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -395,7 +395,7 @@ script = ExtResource("1_mo1ky")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uihya")
-animation = &"receive_damage"
+animation = &"attack"
 autoplay = "idle"
 flip_h = true
 

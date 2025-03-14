@@ -8,6 +8,12 @@ var jump_force
 var character: CharacterBody2D
 var hitbox: CollisionShape2D
 
+var movement_actions = [
+	CharacterState.States.IDLE,
+	CharacterState.States.RUNNING,
+	CharacterState.States.JUMPING,
+]
+
 func _init(body: CharacterBody2D):
 	character = body
 	hitbox = character.get_node("HitBox").get_node("Area")
@@ -40,10 +46,10 @@ func _flip_hitbox(direction: CharacterState.Direction):
 	if direction == CharacterState.Direction.Right:
 		hitbox.position.x = 27.0
 	else:
-		hitbox.position.x = -23.5
+		hitbox.position.x = -24.5
 
 func _update_state():
-	if character.state.current_state == CharacterState.States.ATTACKING:
+	if character.state.current_state not in movement_actions:
 		return
 	if character.velocity.x == 0 and character.is_on_floor():
 		character.state.change_state(CharacterState.States.IDLE)

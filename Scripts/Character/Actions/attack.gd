@@ -16,10 +16,14 @@ func _init(body: CharacterBody2D):
 	self.collisionArea = hitbox.get_node("Area")
 
 func attack():
+	if character.state.current_state == CharacterState.States.ATTACKING:
+		return
 	character.state.change_state(CharacterState.States.ATTACKING)
 	collisionArea.set_deferred("disabled", false)
 
 func _on_hit_detected(body: Node2D):
+	if body == character:
+		return
 	for group in body.get_groups():
 		if group == 'character':
 			body.receive_damage.receive(character.attributes.attack_damage)
