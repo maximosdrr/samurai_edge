@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://cw07r2ik6qxq3"]
 
-[ext_resource type="Script" uid="uid://bfga21r58qtuc" path="res://Scripts/Character/main.gd" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://bktpct4a7mh0d" path="res://Scripts/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://bvqkf3kxw1til" path="res://Assets/Characters/Character2/IDLE.png" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://coe78t3b3tm7t" path="res://Assets/Characters/Character2/JUMP.png" id="4_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dw4ewhyu2g0hg" path="res://Assets/Characters/Character2/RUN.png" id="4_vgqql"]
@@ -175,10 +175,10 @@ size = Vector2(13, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(37, 35)
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_6t5aa")
+[node name="Player" type="CharacterBody2D" groups=["character"]]
+script = ExtResource("1_fkybt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
 animation = &"run"
 autoplay = "idle"
@@ -190,6 +190,6 @@ shape = SubResource("RectangleShape2D_v0iea")
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="Area" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(25.5, -2.5)
+position = Vector2(27, -2)
 shape = SubResource("RectangleShape2D_fkybt")
 disabled = true

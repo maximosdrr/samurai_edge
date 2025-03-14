@@ -1,0 +1,16 @@
+extends Character
+
+class_name Player
+
+func _physics_process(delta: float) -> void:
+	var direction := Input.get_axis("move_left", "move_right")
+	
+	movement.add_gravity(delta);
+	movement.move_x(direction)
+	
+	if Input.is_action_just_pressed("jump") and self.is_on_floor():
+		movement.jump(delta)
+
+func _process(delta):
+	if Input.is_action_just_pressed("attack"):
+		attack.attack()
