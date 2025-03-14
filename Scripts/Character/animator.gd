@@ -13,8 +13,6 @@ func _init(character: CharacterBody2D):
 	self.character = character
 
 func _play_animation(state: CharacterState.States):
-	if(character.name == "Enemy"):
-		print(state)
 	match state:
 		CharacterState.States.IDLE:
 			animation_player.play("idle")
