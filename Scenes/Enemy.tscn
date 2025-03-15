@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dbwjplicsh3u2"]
+[gd_scene load_steps=97 format=3 uid="uid://dbwjplicsh3u2"]
 
 [ext_resource type="Texture2D" uid="uid://cc20vnl3wsx1v" path="res://Assets/Characters/Character1/IDLE.png" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://cur3kjymx07md" path="res://Scripts/Enemy/enemy.gd" id="1_mo1ky"]
@@ -12,6 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://dbfswbimwkl0i" path="res://Assets/Characters/Character1/RUN.png" id="6_6bs3c"]
 [ext_resource type="Texture2D" uid="uid://cnd2emouhqhq1" path="res://Assets/Characters/Character1/DEFEND.png" id="7_idouy"]
 [ext_resource type="AudioStream" uid="uid://con2j413nbaw4" path="res://Assets/Audio/Parry/parry_1.wav" id="12_27ry8"]
+[ext_resource type="AudioStream" uid="uid://bvhhu7lqlct6a" path="res://Assets/Audio/SwordWipes/wipes_3.wav" id="13_qlal6"]
+[ext_resource type="AudioStream" uid="uid://dogbf7lp0pv3s" path="res://Assets/Audio/SwordWipes/wipes_4.wav" id="14_dascy"]
+[ext_resource type="AudioStream" uid="uid://c3cgtyet0glbg" path="res://Assets/Audio/SwordWipes/wipes_5.wav" id="15_rm7px"]
+[ext_resource type="AudioStream" uid="uid://dgg8tkhv2fyi1" path="res://Assets/Audio/SwordHit/sword_hit_1.wav" id="16_rm7px"]
+[ext_resource type="AudioStream" uid="uid://bscnn3rn0qy1j" path="res://Assets/Audio/SwordHit/sword_hit_2.wav" id="17_5yix0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dascy"]
 atlas = ExtResource("2_kpr8r")
@@ -578,9 +583,21 @@ size = Vector2(19, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xeo28"]
 size = Vector2(23.5, 33)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uihya"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5yix0"]
 streams_count = 1
 stream_0/stream = ExtResource("12_27ry8")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_imorw"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("13_qlal6")
+stream_1/stream = ExtResource("14_dascy")
+stream_2/stream = ExtResource("15_rm7px")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0vprv"]
+streams_count = 2
+stream_0/stream = ExtResource("16_rm7px")
+stream_1/stream = ExtResource("17_5yix0")
 
 [node name="Enemy" type="CharacterBody2D" groups=["character"]]
 script = ExtResource("1_mo1ky")
@@ -607,4 +624,10 @@ disabled = true
 [node name="SoundEffects" type="Node2D" parent="."]
 
 [node name="Parry" type="AudioStreamPlayer2D" parent="SoundEffects"]
-stream = SubResource("AudioStreamRandomizer_uihya")
+stream = SubResource("AudioStreamRandomizer_5yix0")
+
+[node name="Wipe" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_imorw")
+
+[node name="SwordHit" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_0vprv")

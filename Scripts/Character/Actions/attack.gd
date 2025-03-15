@@ -1,7 +1,7 @@
 extends Node
 class_name CharacterAttack
 
-var character: CharacterBody2D
+var character: BaseCharacter
 var collisionArea: CollisionShape2D
 var hitbox: Area2D
 var timer: Timer
@@ -10,7 +10,7 @@ var attack_duration = 0.3
 var characters_in_attack_area: Array[Node2D] = []
 signal attack_parried_detected
 
-func _init(body: CharacterBody2D):
+func _init(body: BaseCharacter):
 	character = body
 	hitbox = body.get_node("HitBox");
 	hitbox.body_entered.connect(_on_hit_detected)
@@ -41,9 +41,12 @@ func cancel_attack():
 	collisionArea.set_deferred("disabled", true)
 
 func _commit_attack():
+	if characters_in_attack_area.is_empty():
+		character.audio_player.play("sword_wipe")
 	for chr in characters_in_attack_area:
 		if chr.state.current_state != CharacterState.States.PARRYING:
 			chr.receive_damage.receive(character.attributes.attack_damage)
+			character.audio_player.play("sword_hit")
 		else:
 			chr.attack.attack_parried_detected.emit()
 	characters_in_attack_area.clear()
