@@ -3,14 +3,11 @@ extends Node
 class_name CharacterParry
 
 var character: BaseCharacter
-var animated_sprite: AnimatedSprite2D
-
 var timer: Timer
 var parry_duration = 0.3
 
 func _init(body: BaseCharacter):
 	self.character = body
-	self.animated_sprite = body.get_node("animated_sprite")
 	self.timer = Timer.new()
 	self.timer.one_shot = true
 	self.timer.wait_time = parry_duration
@@ -20,6 +17,7 @@ func _init(body: BaseCharacter):
 
 func _parry_success():
 	self.character.movement.push_back(400)
+	self.character.audio_player.play("parry")
 
 func parry():
 	if character.state.current_state == CharacterState.States.DASHING:

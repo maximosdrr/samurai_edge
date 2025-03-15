@@ -21,6 +21,7 @@ var receive_damage: CharacterReceiveDamage
 var die: CharacterDie
 var parry: CharacterParry
 var dash: CharacterDash
+var audio_player: SfxManager
 
 func _init(jump_force, speed, attack_damage, health):
 	self._jump_force = jump_force
@@ -34,6 +35,7 @@ func _ready():
 	animator = CharacterAnimator.new(self)
 	attributes = CharacterAttributes.new(self, _speed, _jump_force, _attack_damage, _health)
 	movement = CharacterMovement.new(self)
+	audio_player = SfxManager.new(self)
 	
 	#actions
 	receive_damage = CharacterReceiveDamage.new(self)
@@ -46,6 +48,7 @@ func _ready():
 	add_child(animator)
 	add_child(attributes)
 	add_child(movement)
+	add_child(audio_player)
 	add_child(receive_damage)
 	add_child(attack)
 	add_child(die)
