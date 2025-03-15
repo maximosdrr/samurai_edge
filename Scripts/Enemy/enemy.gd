@@ -1,4 +1,4 @@
-extends Character
+extends BaseCharacter
 
 class_name Enemy
 

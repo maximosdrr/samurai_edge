@@ -1,7 +1,7 @@
 # Player.gd
 extends CharacterBody2D
 
-class_name Character
+class_name BaseCharacter
 
 #core
 var state: CharacterState
@@ -39,4 +39,8 @@ func _ready():
 	attack = CharacterAttack.new(self)
 	die = CharacterDie.new(self)
 	parry = CharacterParry.new(self)
+	self.attack.attack_parried_detected.connect(_handle_parry_attack)
+	print("BaseCharacter", attack.attack_parried_detected.get_connections())
 	
+func _handle_parry_attack():
+	print("ok")

@@ -1,4 +1,4 @@
-extends Character
+extends BaseCharacter
 
 class_name Player
 
@@ -8,14 +8,20 @@ var attack_damage = 10
 var health = 1000
 
 @onready var camera: Camera2D = $Camera
+var playerCameraShaker: PlayerCameraShaker
+var self_attack: CharacterAttack
 
 func _init():
 	super(jump_force, speed, attack_damage, health)
 
+func _handle_parry_attack1():
+	print("ok 1")
+	
 func _ready():
 	super._ready()
-	var instance = PlayerCameraShaker.new(self, camera)
-	add_child(instance)
+	self.attack.attack_parried_detected.connect(_handle_parry_attack1)
+	print("Player", attack.attack_parried_detected.get_connections())
+	self.playerCameraShaker = PlayerCameraShaker.new(self, camera)
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")

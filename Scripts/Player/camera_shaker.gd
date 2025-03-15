@@ -13,12 +13,6 @@ func _init(character: CharacterBody2D, camera: Camera2D):
 
 func _ready():
 	character.attack.connect("attack_parried_detected", Callable(self, "handle_parry_attack"))
-	print((character.attack.attack_parried_detected as Signal).get_connections())
-	print(is_inside_tree())
-
-func handle_parry_attack():
-	print("hey!!")
-	
 
 func _handle_take_damage(new_state):
 	if new_state == CharacterState.States.RECEIVING_DAMAGE and !is_shaking:

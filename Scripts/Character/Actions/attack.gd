@@ -1,4 +1,3 @@
-# PlayerAttack.gd
 extends Node
 class_name CharacterAttack
 
@@ -44,7 +43,6 @@ func _commit_attack():
 		if chr.state.current_state != CharacterState.States.PARRYING:
 			chr.receive_damage.receive(character.attributes.attack_damage)
 		else:
-			print("Connections:", attack_parried_detected.get_connections().size())
 			attack_parried_detected.emit()
 	characters_in_attack_area.clear()
 	collisionArea.set_deferred("disabled", true)
