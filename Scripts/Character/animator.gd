@@ -6,6 +6,8 @@ class_name CharacterAnimator
 var animation_player: AnimatedSprite2D
 var character: CharacterBody2D
 
+var last_attack_animation = "attack"
+
 func _init(character: CharacterBody2D):
 	animation_player = character.get_node("animated_sprite")
 	character.state.connect("character_state_change", Callable(self, "_play_animation"))
@@ -21,7 +23,7 @@ func _play_animation(state: CharacterState.States):
 		CharacterState.States.JUMPING:
 			animation_player.play("jump")
 		CharacterState.States.ATTACKING:
-			var animation = _choose_animation(["attack", "attack_1"])
+			var animation = _play_attack_animation()
 			animation_player.play(animation)
 		CharacterState.States.RECEIVING_DAMAGE:
 			animation_player.play("receive_damage")
@@ -35,5 +37,13 @@ func _play_animation(state: CharacterState.States):
 func _flip_sprite(direction: CharacterState.Direction):
 	animation_player.flip_h = true if direction == CharacterState.Direction.Left else false
 
-func _choose_animation(animations: Array[String]):
-	return animations[randi() % animations.size()]
+func _play_attack_animation():
+	var next_attack_animation_map = {
+		"attack": "attack_1",
+		"attack_1": "attack"
+	}
+	
+	var nextAnimation = next_attack_animation_map[last_attack_animation]
+	last_attack_animation = nextAnimation
+	
+	return nextAnimation

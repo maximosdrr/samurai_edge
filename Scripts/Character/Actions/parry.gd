@@ -18,6 +18,8 @@ func _init(body: CharacterBody2D):
 	timer.connect("timeout", Callable(self, "_on_parry_ends"))
 
 func parry():
+	if character.state.current_state == CharacterState.States.DASHING:
+		return
 	if character.state.current_state != CharacterState.States.PARRYING:
 		character.state.change_state(CharacterState.States.PARRYING)
 		character.attack.cancel_attack()
