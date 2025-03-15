@@ -29,6 +29,8 @@ func _play_animation(state: CharacterState.States):
 			animation_player.play("die")
 		CharacterState.States.PARRYING:
 			animation_player.play("parry")
+		CharacterState.States.DASHING:
+			animation_player.play("dash")
 			
 func _flip_sprite(direction: CharacterState.Direction):
 	animation_player.flip_h = true if direction == CharacterState.Direction.Left else false

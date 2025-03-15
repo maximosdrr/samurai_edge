@@ -20,6 +20,7 @@ var attack: CharacterAttack
 var receive_damage: CharacterReceiveDamage
 var die: CharacterDie
 var parry: CharacterParry
+var dash: CharacterDash
 
 func _init(jump_force, speed, attack_damage, health):
 	self._jump_force = jump_force
@@ -39,3 +40,14 @@ func _ready():
 	attack = CharacterAttack.new(self)
 	die = CharacterDie.new(self)
 	parry = CharacterParry.new(self)
+	dash = CharacterDash.new(self)
+	
+	add_child(state)
+	add_child(animator)
+	add_child(attributes)
+	add_child(movement)
+	add_child(receive_damage)
+	add_child(attack)
+	add_child(die)
+	add_child(parry)
+	add_child(dash)

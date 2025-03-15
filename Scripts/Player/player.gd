@@ -29,6 +29,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("jump") and self.is_on_floor():
 		movement.jump(delta)
+	
+	if Input.is_action_just_pressed("dash") and self.is_on_floor():
+		dash.dash()
 
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):

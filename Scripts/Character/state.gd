@@ -3,7 +3,7 @@ extends Node
 
 class_name CharacterState
 
-enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE, DEAD, PARRYING }
+enum States { IDLE, RUNNING, JUMPING, ATTACKING, RECEIVING_DAMAGE, DEAD, PARRYING, DASHING }
 enum Direction { Left, Right }
 
 var current_state = States.IDLE

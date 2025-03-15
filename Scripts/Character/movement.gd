@@ -5,7 +5,7 @@ class_name CharacterMovement
 
 var speed
 var jump_force
-var character: CharacterBody2D
+var character: BaseCharacter
 var hitbox: CollisionShape2D
 
 var movement_actions = [
@@ -14,13 +14,16 @@ var movement_actions = [
 	CharacterState.States.JUMPING,
 ]
 
-func _init(body: CharacterBody2D):
+var movimentation_is_blocked = false
+
+func _init(body: BaseCharacter):
 	character = body
 	hitbox = character.get_node("HitBox").get_node("Area")
 	self.speed = character.attributes.speed
 	self.jump_force = character.attributes.jump_force
 	
 func move_x(direction: int):
+	if movimentation_is_blocked: return
 	if direction:
 		character.velocity.x = direction * speed
 	else:
@@ -29,6 +32,7 @@ func move_x(direction: int):
 	character.move_and_slide()
 
 func jump(delta: float):
+	if movimentation_is_blocked: return
 	character.velocity.y = jump_force
 	_update_state()
 	character.move_and_slide()
@@ -38,9 +42,13 @@ func add_gravity(delta: float):
 		character.velocity += character.get_gravity()  * delta
 
 func stop():
+	if movimentation_is_blocked: return
 	character.velocity.x = 0
 	_update_state()
 	character.move_and_slide()
+
+func change_block_movement(value: bool):
+	self.movimentation_is_blocked = value
 
 func _flip_hitbox(direction: CharacterState.Direction):
 	if direction == CharacterState.Direction.Right:
