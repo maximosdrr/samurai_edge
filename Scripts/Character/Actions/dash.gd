@@ -22,6 +22,8 @@ func dash():
 		return
 	if character.state.current_state == CharacterState.States.RECEIVING_DAMAGE:
 		return
+	if character.state.current_state == CharacterState.States.ATTACKING:
+		return
 	timer.start()
 	character.state.change_state(CharacterState.States.DASHING)
 	character.movement.change_block_movement(true)

@@ -13,15 +13,15 @@ signal attack_parried_detected
 func _init(body: CharacterBody2D):
 	character = body
 	hitbox = body.get_node("HitBox");
-	hitbox.connect("body_entered", Callable(self, "_on_hit_detected"))
-	hitbox.connect("body_exited", Callable(self, "_on_body_outs_hitbox"))
+	hitbox.body_entered.connect(_on_hit_detected)
+	hitbox.body_exited.connect(_on_body_outs_hitbox)
 	self.collisionArea = hitbox.get_node("Area")
 	#timer
 	self.timer = Timer.new()
 	self.timer.one_shot = true
 	self.timer.wait_time = attack_duration
 	self.character.add_child(timer)
-	self.timer.connect("timeout", Callable(self, "_commit_attack"))
+	self.timer.timeout.connect(_commit_attack)
 	
 func attack():
 	if character.state.current_state == CharacterState.States.RECEIVING_DAMAGE:
@@ -29,6 +29,8 @@ func attack():
 	if character.state.current_state == CharacterState.States.ATTACKING:
 		return
 	if character.state.current_state == CharacterState.States.PARRYING:
+		return
+	if character.state.current_state == CharacterState.States.DASHING:
 		return
 	character.state.change_state(CharacterState.States.ATTACKING)
 	collisionArea.set_deferred("disabled", false)
