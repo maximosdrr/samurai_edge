@@ -50,6 +50,11 @@ func stop():
 func change_block_movement(value: bool):
 	self.movimentation_is_blocked = value
 
+func push_back(force: float):
+	var push_direction = -1 if self.character.state.current_direction == CharacterState.Direction.Right else 1
+	self.character.velocity.x = force * push_direction
+	character.move_and_slide()
+
 func _flip_hitbox(direction: CharacterState.Direction):
 	if direction == CharacterState.Direction.Right:
 		hitbox.position.x = 27.0
