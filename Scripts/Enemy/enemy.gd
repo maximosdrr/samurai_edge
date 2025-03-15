@@ -4,7 +4,7 @@ class_name Enemy
 
 var jump_force = -400
 var speed = 200
-var attack_damage = 10
+var attack_damage = 5
 var health = 1000
 
 var counter = 0

@@ -43,7 +43,7 @@ func _commit_attack():
 		if chr.state.current_state != CharacterState.States.PARRYING:
 			chr.receive_damage.receive(character.attributes.attack_damage)
 		else:
-			attack_parried_detected.emit()
+			chr.attack.attack_parried_detected.emit()
 	characters_in_attack_area.clear()
 	collisionArea.set_deferred("disabled", true)
 	character.state.change_state(CharacterState.States.IDLE)

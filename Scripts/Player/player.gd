@@ -15,13 +15,11 @@ func _init():
 	super(jump_force, speed, attack_damage, health)
 
 func _handle_parry_attack1():
-	print("ok 1")
+	print("Character have died")
 	
 func _ready():
 	super._ready()
-	self.attack.attack_parried_detected.connect(_handle_parry_attack1)
-	print("Player", attack.attack_parried_detected.get_connections())
-	self.playerCameraShaker = PlayerCameraShaker.new(self, camera)
+	PlayerCameraShaker.new(self, camera)
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
