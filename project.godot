@@ -15,6 +15,10 @@ run/main_scene="uid://bkiljxpw37btn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[dotnet]
+
+project/assembly_name="samurai_edge"
+
 [global_group]
 
 character=""

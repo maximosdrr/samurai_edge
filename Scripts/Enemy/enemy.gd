@@ -17,6 +17,6 @@ func _physics_process(delta: float) -> void:
 	
 
 func _process(delta):
-	if counter % 120 == 0:
+	if counter % 180 == 0:
 		attack.attack()
 	counter += 1
