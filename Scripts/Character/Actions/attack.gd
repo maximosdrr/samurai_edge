@@ -6,6 +6,7 @@ var collisionArea: CollisionShape2D
 var hitbox: Area2D
 var timer: Timer
 var attack_duration = 0.3
+var delay_before_attack = 0.1
 
 var characters_in_attack_area: Array[Node2D] = []
 signal attack_parried_detected
@@ -38,6 +39,7 @@ func attack():
 
 func cancel_attack():
 	collisionArea.set_deferred("disabled", true)
+	characters_in_attack_area.clear()
 
 func _commit_attack():
 	if characters_in_attack_area.is_empty():
