@@ -57,9 +57,9 @@ func push_back(force: float):
 
 func _flip_hitbox(direction: CharacterState.Direction):
 	if direction == CharacterState.Direction.Right:
-		hitbox.position.x = 27.0
+		hitbox.position.x = 23.25
 	else:
-		hitbox.position.x = -24.5
+		hitbox.position.x = -20.25
 
 func _update_state():
 	if character.state.current_state not in movement_actions:

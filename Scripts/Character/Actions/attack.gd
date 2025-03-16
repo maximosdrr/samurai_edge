@@ -14,7 +14,7 @@ func _init(body: BaseCharacter):
 	character = body
 	hitbox = body.get_node("HitBox");
 	hitbox.body_entered.connect(_on_hit_detected)
-	hitbox.body_exited.connect(_on_body_outs_hitbox)
+	#hitbox.body_exited.connect(_on_body_outs_hitbox)
 	self.collisionArea = hitbox.get_node("Area")
 	#timer
 	self.timer = Timer.new()
@@ -34,7 +34,6 @@ func attack():
 		return
 	character.state.change_state(CharacterState.States.ATTACKING)
 	collisionArea.set_deferred("disabled", false)
-	timer.stop()
 	timer.start()
 
 func cancel_attack():
@@ -60,9 +59,9 @@ func _on_hit_detected(body: Node2D):
 		if group == 'character':
 			characters_in_attack_area.append(body)
 
-func _on_body_outs_hitbox(body: Node2D):
-	var aux = characters_in_attack_area
-	characters_in_attack_area.clear()
-	for character in aux:
-		if body.get_instance_id() != character.get_instance_id():
-			characters_in_attack_area.append(character)
+#func _on_body_outs_hitbox(body: Node2D):
+#	var aux = characters_in_attack_area
+#	characters_in_attack_area.clear()
+#	for character in aux:
+#		if body.get_instance_id() != character.get_instance_id():
+#			characters_in_attack_area.append(character)

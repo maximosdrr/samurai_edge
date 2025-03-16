@@ -467,7 +467,7 @@ animations = [{
 size = Vector2(13, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
-size = Vector2(37, 35)
+size = Vector2(29.5, 35)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h4iuc"]
 streams_count = 1
@@ -511,7 +511,7 @@ shape = SubResource("RectangleShape2D_v0iea")
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="Area" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(27, -2)
+position = Vector2(-20.25, -2)
 shape = SubResource("RectangleShape2D_fkybt")
 disabled = true
 
