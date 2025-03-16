@@ -2,7 +2,7 @@ extends BaseCharacter
 
 class_name Player
 
-var jump_force = -250
+var jump_force = -300
 var speed = 200
 var attack_damage = 10
 var health = 1000

@@ -2,7 +2,7 @@ extends BaseCharacter
 
 class_name Enemy
 
-var jump_force = -400
+var jump_force = -300
 var speed = 200
 var attack_damage = 5
 var health = 1000

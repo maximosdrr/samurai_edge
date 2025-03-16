@@ -6,7 +6,7 @@ class_name CharacterDash
 var character: BaseCharacter
 var timer: Timer
 var dash_duration = 0.4
-var dash_units = 100
+var dash_units = 70
 
 func _init(char: BaseCharacter):
 	self.character = char
