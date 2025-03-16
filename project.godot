@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="samurai_edge"
-run/main_scene="uid://bkiljxpw37btn"
+run/main_scene="uid://ckdpkmqsa3xj7"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/resizable=false
 
 [dotnet]
 

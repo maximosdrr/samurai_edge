@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://cw07r2ik6qxq3"]
+[gd_scene load_steps=88 format=3 uid="uid://cw07r2ik6qxq3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://bktpct4a7mh0d" path="res://Scripts/Player/player.gd" id="1_fkybt"]
@@ -496,7 +496,31 @@ stream_3/stream = ExtResource("21_2ijsl")
 streams_count = 1
 stream_0/stream = ExtResource("22_wpjfl")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("HurtBox:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("HitBox/Area:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("HitBox/Area:disabled")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("HurtBox:disabled")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("animated_sprite:animation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("animated_sprite:flip_h")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D" groups=["character"]]
+z_index = 1000
 script = ExtResource("1_fkybt")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
@@ -536,3 +560,10 @@ bus = &"Sfx"
 [node name="Dash" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_bi64h")
 bus = &"Sfx"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_urksf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -118)
+zoom = Vector2(2, 2)

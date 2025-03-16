@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckdpkmqsa3xj7"]
+
+[ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Core/Scenario.tscn" id="1_gl6un"]
+[ext_resource type="Script" uid="uid://c1u3cx6a77m5d" path="res://Scripts/multiplayer.gd" id="1_j5yw3"]
+[ext_resource type="AudioStream" uid="uid://bhiwof6m36adk" path="res://Assets/Audio/Themes/battle_theme.ogg" id="2_j5yw3"]
+[ext_resource type="FontFile" uid="uid://dq3tvi46fx3gt" path="res://Assets/Fonts/kirifont/KiriFont.otf" id="4_kldst"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_j5yw3")
+
+[node name="Map" parent="." instance=ExtResource("1_gl6un")]
+
+[node name="LevelMusicTheme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_j5yw3")
+autoplay = true
+bus = &"Music"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 100
+position = Vector2(632, -135)
+zoom = Vector2(2, 2)
+
+[node name="Host" type="Button" parent="."]
+z_index = 100
+offset_left = 370.0
+offset_top = -97.0
+offset_right = 480.0
+offset_bottom = -66.0
+theme_override_fonts/font = ExtResource("4_kldst")
+text = "Hospedar"
+
+[node name="Join" type="Button" parent="."]
+z_index = 100
+offset_left = 372.0
+offset_top = -138.0
+offset_right = 438.0
+offset_bottom = -107.0
+theme_override_fonts/font = ExtResource("4_kldst")
+theme_override_font_sizes/font_size = 12
+text = "Entrar"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dbwjplicsh3u2")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
