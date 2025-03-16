@@ -9,6 +9,8 @@ var sfx_node: Node
 var parry: AudioStreamPlayer2D
 var sword_wipe: AudioStreamPlayer2D
 var sword_hit: AudioStreamPlayer2D
+var hurt: AudioStreamPlayer2D
+var dash: AudioStreamPlayer2D
 
 func _init(character: BaseCharacter):
 	self.character = character
@@ -17,6 +19,8 @@ func _init(character: BaseCharacter):
 	self.parry = sfx_node.get_node("Parry")
 	self.sword_wipe = sfx_node.get_node("Wipe")
 	self.sword_hit = sfx_node.get_node("SwordHit")
+	self.hurt = sfx_node.get_node("Hurt")
+	self.dash = sfx_node.get_node("Dash")
 	
 
 func play(sfx_name: String):

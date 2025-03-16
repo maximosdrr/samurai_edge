@@ -24,8 +24,11 @@ func dash():
 		return
 	if character.state.current_state == CharacterState.States.ATTACKING:
 		return
+	if character.state.current_state == CharacterState.States.PARRYING:
+		return
 	timer.start()
 	character.state.change_state(CharacterState.States.DASHING)
+	character.audio_player.play("dash")
 	character.movement.change_block_movement(true)
 	
 func dash_ends():

@@ -17,6 +17,7 @@ func _init(character: BaseCharacter):
 func receive(amount):
 	character.state.change_state(CharacterState.States.RECEIVING_DAMAGE)
 	character.attack.cancel_attack()
+	character.audio_player.play("hurt")
 	character.movement.push_back(500)
 	timer.start()
 	character.state.set_state_change_is_blocked(true)

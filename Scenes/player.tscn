@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://cw07r2ik6qxq3"]
+[gd_scene load_steps=87 format=3 uid="uid://cw07r2ik6qxq3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://bktpct4a7mh0d" path="res://Scripts/Player/player.gd" id="1_fkybt"]
@@ -17,6 +17,11 @@
 [ext_resource type="AudioStream" uid="uid://c3cgtyet0glbg" path="res://Assets/Audio/SwordWipes/wipes_5.wav" id="15_qqcod"]
 [ext_resource type="AudioStream" uid="uid://dgg8tkhv2fyi1" path="res://Assets/Audio/SwordHit/sword_hit_1.wav" id="16_qqcod"]
 [ext_resource type="AudioStream" uid="uid://bscnn3rn0qy1j" path="res://Assets/Audio/SwordHit/sword_hit_2.wav" id="17_igrcy"]
+[ext_resource type="AudioStream" uid="uid://gtyiwnpp6gym" path="res://Assets/Audio/Hurt/hurt_1.wav" id="18_olqyp"]
+[ext_resource type="AudioStream" uid="uid://cfpiwnr6bh1nx" path="res://Assets/Audio/Hurt/hurt_2.wav" id="19_wpjfl"]
+[ext_resource type="AudioStream" uid="uid://cpgplqnr4c51j" path="res://Assets/Audio/Hurt/hurt_3.wav" id="20_bi64h"]
+[ext_resource type="AudioStream" uid="uid://8taihhcufy2d" path="res://Assets/Audio/Hurt/hurt_4.wav" id="21_2ijsl"]
+[ext_resource type="AudioStream" uid="uid://birfetbrtpitc" path="res://Assets/Audio/Dash/dash.wav" id="22_wpjfl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("1_cvnsp")
@@ -480,6 +485,17 @@ streams_count = 2
 stream_0/stream = ExtResource("16_qqcod")
 stream_1/stream = ExtResource("17_igrcy")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p1odr"]
+streams_count = 4
+stream_0/stream = ExtResource("18_olqyp")
+stream_1/stream = ExtResource("19_wpjfl")
+stream_2/stream = ExtResource("20_bi64h")
+stream_3/stream = ExtResource("21_2ijsl")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bi64h"]
+streams_count = 1
+stream_0/stream = ExtResource("22_wpjfl")
+
 [node name="Player" type="CharacterBody2D" groups=["character"]]
 script = ExtResource("1_fkybt")
 
@@ -509,3 +525,9 @@ stream = SubResource("AudioStreamRandomizer_pu2lt")
 
 [node name="SwordHit" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_fs7ks")
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_p1odr")
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_bi64h")
