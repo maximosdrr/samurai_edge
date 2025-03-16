@@ -519,15 +519,20 @@ disabled = true
 
 [node name="Parry" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_h4iuc")
+bus = &"Sfx"
 
 [node name="Wipe" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_pu2lt")
+bus = &"Sfx"
 
 [node name="SwordHit" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_fs7ks")
+bus = &"Sfx"
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_p1odr")
+bus = &"Sfx"
 
 [node name="Dash" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_bi64h")
+bus = &"Sfx"

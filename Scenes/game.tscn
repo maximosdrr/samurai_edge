@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkiljxpw37btn"]
+[gd_scene load_steps=5 format=3 uid="uid://bkiljxpw37btn"]
 
 [ext_resource type="PackedScene" uid="uid://cw07r2ik6qxq3" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Scenario.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://dbwjplicsh3u2" path="res://Scenes/Enemy.tscn" id="3_wrm1d"]
+[ext_resource type="AudioStream" uid="uid://bhiwof6m36adk" path="res://Assets/Audio/Themes/battle_theme.ogg" id="4_3dryh"]
 
 [node name="Game" type="Node2D"]
 
@@ -19,3 +20,8 @@ zoom = Vector2(2.5, 2.5)
 [node name="Enemy" parent="." instance=ExtResource("3_wrm1d")]
 z_index = 100
 position = Vector2(702, -30)
+
+[node name="LevelMusicTheme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3dryh")
+autoplay = true
+bus = &"Music"
