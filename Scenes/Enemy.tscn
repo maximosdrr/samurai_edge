@@ -595,6 +595,7 @@ stream_1/stream = ExtResource("14_dascy")
 stream_2/stream = ExtResource("15_rm7px")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0vprv"]
+playback_mode = 2
 streams_count = 2
 stream_0/stream = ExtResource("16_rm7px")
 stream_1/stream = ExtResource("17_5yix0")
