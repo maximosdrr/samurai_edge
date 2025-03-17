@@ -14,13 +14,27 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	input_direction = Input.get_axis("move_left", "move_right")
 	player.movement.move_x(input_direction)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		jump.rpc()
 	if Input.is_action_just_pressed("dash"):
 		dash.rpc()
-		
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if  Input.is_action_just_pressed("attack"):
+		attack.rpc()
+	if Input.is_action_just_pressed("parry"):
+		parry.rpc()
+
+@rpc("call_local")
+func attack():
+	if multiplayer.is_server():
+		player.do_attack = true
+
+@rpc("call_local")
+func parry():
+	if multiplayer.is_server():
+		player.do_parry = true
+
 @rpc("call_local")
 func jump():
 	if multiplayer.is_server():

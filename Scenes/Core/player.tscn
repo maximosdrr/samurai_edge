@@ -46,6 +46,18 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:_asset_direction")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:do_attack")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:do_parry")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("HurtBox:disabled")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("HitBox/Area:disabled")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
 properties/0/path = NodePath("InputSyncronizer:input_direction")

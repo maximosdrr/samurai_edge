@@ -23,8 +23,8 @@ func play_animation(state: CharacterState.States):
 		CharacterState.States.JUMPING:
 			animation_player.play("jump")
 		CharacterState.States.ATTACKING:
-			var animation = _play_attack_animation()
-			animation_player.play(animation)
+			#var animation = _play_attack_animation()
+			animation_player.play("attack_1")
 		CharacterState.States.RECEIVING_DAMAGE:
 			animation_player.play("receive_damage")
 		CharacterState.States.DEAD:

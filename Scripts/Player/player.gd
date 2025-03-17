@@ -4,7 +4,7 @@ class_name Player
 
 var jump_force = -300
 var speed = 200
-var attack_damage = 10
+var attack_damage = 300
 var health = 1000
 
 @export var player_id := 1:
@@ -17,6 +17,8 @@ var _is_on_floor = true
 var do_dash = false
 var _current_state = CharacterState.States.IDLE
 var _asset_direction = CharacterState.Direction.Left
+var do_attack = false
+var do_parry = false
 
 @onready var camera: Camera2D = $Camera2D
 var playerCameraShaker: PlayerCameraShaker
@@ -42,14 +44,15 @@ func _update_state(state):
 	_current_state = state
 	
 func _physics_process(delta: float) -> void:
-	movement.add_gravity(delta);
+	
 	if not multiplayer.is_server() || MultiplayerManager.host_mode_enabled:
 		self.animator.play_animation(_current_state)
 		self.animator.flip_sprite(_asset_direction)
 	
 	if not multiplayer.is_server():
 		return
-		
+	
+	movement.add_gravity(delta);
 	var direction = %InputSyncronizer.input_direction
 	movement.move_x(direction)
 	
@@ -61,11 +64,11 @@ func _physics_process(delta: float) -> void:
 		dash.dash()
 		do_dash = false
 	
-	
-
 func _process(delta):
-	if Input.is_action_just_pressed("attack") and is_multiplayer_authority():
+	if do_attack and is_multiplayer_authority():
 		attack.attack()
-	if Input.is_action_just_pressed("parry") and is_multiplayer_authority():
+		do_attack = false
+	if do_parry and is_multiplayer_authority():
 		parry.parry()
+		do_parry = false
 	
