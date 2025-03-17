@@ -15,9 +15,14 @@ run/main_scene="uid://ckdpkmqsa3xj7"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MultiplayerManager="*res://Scripts/Multiplayer/multiplayer_manager.gd"
+
 [display]
 
 window/size/resizable=false
+window/size/always_on_top=true
 
 [dotnet]
 

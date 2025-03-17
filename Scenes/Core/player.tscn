@@ -1,8 +1,9 @@
-[gd_scene load_steps=88 format=3 uid="uid://cw07r2ik6qxq3"]
+[gd_scene load_steps=90 format=3 uid="uid://cw07r2ik6qxq3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://bktpct4a7mh0d" path="res://Scripts/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://bvqkf3kxw1til" path="res://Assets/Characters/Character2/IDLE.png" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://ylg2q2sxj2jj" path="res://Scripts/Multiplayer/multiplayer_input.gd" id="2_icxwe"]
 [ext_resource type="Texture2D" uid="uid://dkmpcwglnvlse" path="res://Assets/Characters/Character2/ATTACK3.png" id="3_8erm5"]
 [ext_resource type="Texture2D" uid="uid://4g0sqiiaefca" path="res://Assets/Characters/Character2/DEATH.png" id="3_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://coe78t3b3tm7t" path="res://Assets/Characters/Character2/JUMP.png" id="4_fkybt"]
@@ -22,6 +23,28 @@
 [ext_resource type="AudioStream" uid="uid://cpgplqnr4c51j" path="res://Assets/Audio/Hurt/hurt_3.wav" id="20_bi64h"]
 [ext_resource type="AudioStream" uid="uid://8taihhcufy2d" path="res://Assets/Audio/Hurt/hurt_4.wav" id="21_2ijsl"]
 [ext_resource type="AudioStream" uid="uid://birfetbrtpitc" path="res://Assets/Audio/Dash/dash.wav" id="22_wpjfl"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icxwe"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:do_jump")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:_is_on_floor")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:do_dash")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
+properties/0/path = NodePath("InputSyncronizer:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("1_cvnsp")
@@ -496,26 +519,17 @@ stream_3/stream = ExtResource("21_2ijsl")
 streams_count = 1
 stream_0/stream = ExtResource("22_wpjfl")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("HurtBox:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("HitBox/Area:position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("HitBox/Area:disabled")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("HurtBox:disabled")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-
 [node name="Player" type="CharacterBody2D" groups=["character"]]
 z_index = 1000
 script = ExtResource("1_fkybt")
+
+[node name="PlayerSyncronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_icxwe")
+
+[node name="InputSyncronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_urksf")
+script = ExtResource("2_icxwe")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
@@ -554,9 +568,6 @@ bus = &"Sfx"
 [node name="Dash" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_bi64h")
 bus = &"Sfx"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_urksf")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -118)
