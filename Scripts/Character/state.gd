@@ -32,9 +32,23 @@ func change_state(new_state):
 		current_state = new_state
 		self.character_state_change.emit(self.current_state)
 		
+		if character.is_multiplayer_authority():
+			rpc("_sync_state", new_state)
+		
 func change_direction(direction):
 	current_direction = direction
 	character_direction_change.emit(direction)
+	rpc("_sync_direction", direction)
 
 func set_state_change_is_blocked(value: bool):
 	_state_change_is_blocked = value
+
+@rpc("any_peer", "call_local")
+func _sync_state(new_state):
+	current_state = new_state
+	self.character_state_change.emit(self.current_state)
+
+@rpc("any_peer", "call_local")
+func _sync_direction(direction):
+	current_direction = direction
+	self.character_direction_change.emit(direction)

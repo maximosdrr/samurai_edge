@@ -512,12 +512,6 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("HurtBox:disabled")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("animated_sprite:animation")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("animated_sprite:flip_h")
-properties/6/spawn = true
-properties/6/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["character"]]
 z_index = 1000
