@@ -7,8 +7,14 @@ var PLAYER = preload("res://Scenes/Core/player.tscn")
 var players = {}
 
 @onready var camera_2d: Camera2D = $Camera2D
-@onready var host: Button = $Host
-@onready var join: Button = $Join
+@onready var create_lobby_button: Button = $CreateLobby
+@onready var join_lobby_button: Button = $Join
+@onready var code_label: Label = $CodeLabel
+@onready var code_input: LineEdit = $LobbyCode
+
+func _ready():
+	if OS.has_feature("dedicated_server"):
+		_on_host_pressed()
 
 func _on_host_pressed():
 	peer.create_server(25565)
@@ -17,7 +23,7 @@ func _on_host_pressed():
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	
 	# O host (servidor) também precisa ser um jogador
-	_on_player_connected(multiplayer.get_unique_id())
+	#_on_player_connected(multiplayer.get_unique_id())
 
 func _on_join_pressed():
 	peer.create_client("localhost", 25565)
@@ -65,8 +71,7 @@ func _spawn_player(id):
 	# Se este jogador for o local, movemos a câmera para ele
 	if multiplayer.get_unique_id() == id:
 		camera_2d.reparent(player)
-		host.queue_free()
-		join.queue_free()
+		#join_lobby_button.queue_free()
 
 # 🚀 Função para remover um jogador desconectado
 @rpc("any_peer", "call_local")
