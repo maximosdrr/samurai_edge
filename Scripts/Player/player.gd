@@ -15,6 +15,8 @@ var health = 1000
 var do_jump = false
 var _is_on_floor = true
 var do_dash = false
+var _current_state = CharacterState.States.IDLE
+var _asset_direction = CharacterState.Direction.Left
 
 @onready var camera: Camera2D = $Camera2D
 var playerCameraShaker: PlayerCameraShaker
@@ -26,14 +28,24 @@ func _init():
 func _ready():
 	super._ready()
 	PlayerCameraShaker.new(self, camera)
+	self.state.character_state_change.connect(_update_state)
+	self.state.character_direction_change.connect(_update_asset_direction)
 	
 	if multiplayer.get_unique_id() == player_id:
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
+func _update_asset_direction(direction):
+	_asset_direction = direction
+	
+func _update_state(state):
+	_current_state = state
 	
 func _physics_process(delta: float) -> void:
 	movement.add_gravity(delta);
+	if not multiplayer.is_server() || MultiplayerManager.host_mode_enabled:
+		self.animator.play_animation(_current_state)
+		self.animator.flip_sprite(_asset_direction)
 	
 	if not multiplayer.is_server():
 		return
@@ -48,9 +60,12 @@ func _physics_process(delta: float) -> void:
 	if do_dash and self.is_on_floor():
 		dash.dash()
 		do_dash = false
+	
+	
 
 func _process(delta):
 	if Input.is_action_just_pressed("attack") and is_multiplayer_authority():
 		attack.attack()
 	if Input.is_action_just_pressed("parry") and is_multiplayer_authority():
 		parry.parry()
+	
