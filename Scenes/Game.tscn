@@ -59,5 +59,16 @@ offset_top = -104.0
 offset_right = 680.0
 offset_bottom = -81.0
 
+[node name="BecomeHost" type="Button" parent="."]
+z_index = 100
+offset_left = 361.0
+offset_top = -87.0
+offset_right = 438.0
+offset_bottom = -56.0
+theme_override_fonts/font = ExtResource("4_kldst")
+theme_override_font_sizes/font_size = 12
+text = "Hostear"
+
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="CreateLobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="BecomeHost" to="." method="_on_become_host_pressed"]

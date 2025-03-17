@@ -14,9 +14,9 @@ var players = {}
 
 func _ready():
 	if OS.has_feature("dedicated_server"):
-		_on_host_pressed()
+		_become_host()
 
-func _on_host_pressed():
+func _become_host():
 	peer.create_server(25565)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -78,3 +78,8 @@ func _spawn_player(id):
 func _despawn_player(id):
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
+
+
+func _on_become_host_pressed() -> void:
+	_become_host()
+	
