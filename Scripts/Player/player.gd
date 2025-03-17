@@ -37,18 +37,15 @@ func _ready():
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
+		
 func _update_asset_direction(direction):
 	_asset_direction = direction
 	
 func _update_state(state):
 	_current_state = state
 	
+
 func _physics_process(delta: float) -> void:
-	
-	if not multiplayer.is_server() || MultiplayerManager.host_mode_enabled:
-		self.animator.play_animation(_current_state)
-		self.animator.flip_sprite(_asset_direction)
-	
 	if not multiplayer.is_server():
 		return
 	
@@ -65,6 +62,10 @@ func _physics_process(delta: float) -> void:
 		do_dash = false
 	
 func _process(delta):
+	if multiplayer.is_server() || not MultiplayerManager.host_mode_enabled:
+		self.animator.flip_sprite(_asset_direction)
+		self.animator.play_animation(_current_state)
+		
 	if do_attack and is_multiplayer_authority():
 		attack.attack()
 		do_attack = false

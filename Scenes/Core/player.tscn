@@ -551,7 +551,7 @@ script = ExtResource("2_icxwe")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
-animation = &"attack"
+animation = &"die"
 autoplay = "idle"
 
 [node name="HurtBox" type="CollisionShape2D" parent="."]
