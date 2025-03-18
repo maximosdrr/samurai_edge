@@ -4,11 +4,11 @@ extends Node
 class_name CharacterAnimator
 
 var animation_player: AnimatedSprite2D
-var character: CharacterBody2D
+var character: BaseCharacter
 
 var last_attack_animation = "attack"
 
-func _init(character: CharacterBody2D):
+func _init(character: BaseCharacter):
 	animation_player = character.get_node("animated_sprite")
 	character.state.character_state_change.connect(play_animation)
 	character.state.character_direction_change.connect(flip_sprite)
@@ -23,12 +23,9 @@ func play_animation(state: CharacterState.States):
 		CharacterState.States.JUMPING:
 			animation_player.play("jump")
 		CharacterState.States.ATTACKING:
-			#var animation = _play_attack_animation()
 			animation_player.play("attack_1")
 		CharacterState.States.RECEIVING_DAMAGE:
 			animation_player.play("receive_damage")
-		CharacterState.States.DEAD:
-			animation_player.play("die")
 		CharacterState.States.PARRYING:
 			animation_player.play("parry")
 		CharacterState.States.DASHING:

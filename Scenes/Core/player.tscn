@@ -58,6 +58,12 @@ properties/9/replication_mode = 1
 properties/10/path = NodePath("HitBox/Area:disabled")
 properties/10/spawn = true
 properties/10/replication_mode = 1
+properties/11/path = NodePath(".:player_is_dead")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath(".:player_hp")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
 properties/0/path = NodePath("InputSyncronizer:input_direction")

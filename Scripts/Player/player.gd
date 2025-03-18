@@ -19,6 +19,8 @@ var _current_state = CharacterState.States.IDLE
 var _asset_direction = CharacterState.Direction.Left
 var do_attack = false
 var do_parry = false
+var player_is_dead = false
+var player_hp = 0
 
 @onready var camera: Camera2D = $Camera2D
 var playerCameraShaker: PlayerCameraShaker
@@ -30,14 +32,21 @@ func _init():
 func _ready():
 	super._ready()
 	PlayerCameraShaker.new(self, camera)
+	
 	self.state.character_state_change.connect(_update_state)
 	self.state.character_direction_change.connect(_update_asset_direction)
+	self.attributes.health_decrease.connect(_decrease_hp)
+	
+	self.player_hp = self.attributes.health
 	
 	if multiplayer.get_unique_id() == player_id:
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
-		
+
+func _decrease_hp(amount):
+	player_hp -= amount
+
 func _update_asset_direction(direction):
 	_asset_direction = direction
 	
@@ -66,10 +75,13 @@ func _process(delta):
 		self.animator.flip_sprite(_asset_direction)
 		self.animator.play_animation(_current_state)
 		
+		if player_is_dead:
+			self.die.execute()
+		
 	if do_attack and is_multiplayer_authority():
 		attack.attack()
 		do_attack = false
+		
 	if do_parry and is_multiplayer_authority():
 		parry.parry()
 		do_parry = false
-	
