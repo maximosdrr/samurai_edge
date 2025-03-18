@@ -30,9 +30,10 @@ func _process(delta: float) -> void:
 	if player.player_hp <= 0:
 		die.rpc()
 
-func _on_character_die():
-	print("calls")
-	die.rpc()
+@rpc("call_local")
+func play_sound(sound: String):
+	if multiplayer.is_server():
+		player.sfx_to_play = sound
 
 @rpc("call_local")
 func attack():

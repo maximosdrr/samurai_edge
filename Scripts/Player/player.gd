@@ -21,6 +21,7 @@ var do_attack = false
 var do_parry = false
 var player_is_dead = false
 var player_hp = 0
+@export var sfx_to_play = ""
 
 @onready var camera: Camera2D = $Camera2D
 var playerCameraShaker: PlayerCameraShaker
@@ -36,6 +37,7 @@ func _ready():
 	self.state.character_state_change.connect(_update_state)
 	self.state.character_direction_change.connect(_update_asset_direction)
 	self.attributes.health_decrease.connect(_decrease_hp)
+	self.audio_player.sound_to_play.connect(_update_sound_to_play)
 	
 	self.player_hp = self.attributes.health
 	
@@ -43,6 +45,20 @@ func _ready():
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
+
+func play_sound():
+	var sound: AudioStreamPlayer2D = self.audio_player.get(self.sfx_to_play) 
+	%InputSyncronizer.play_sound(self.sfx_to_play)
+	sound.play()
+	
+	if not sound.finished.is_connected(clear_sound_to_play):
+		sound.finished.connect(clear_sound_to_play)
+
+func clear_sound_to_play():
+	self.sfx_to_play = ""
+	
+func _update_sound_to_play(sound: String):
+	self.sfx_to_play = sound
 
 func _decrease_hp(amount):
 	player_hp -= amount
@@ -77,6 +93,8 @@ func _process(delta):
 		
 		if player_is_dead:
 			self.die.execute()
+		if sfx_to_play != "":
+			play_sound()
 		
 	if do_attack and is_multiplayer_authority():
 		attack.attack()
