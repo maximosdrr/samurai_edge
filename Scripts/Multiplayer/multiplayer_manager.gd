@@ -21,7 +21,8 @@ func become_host():
 	multiplayer.peer_connected.connect(_add_player_to_game)
 	multiplayer.peer_disconnected.connect(_del_player)
 	
-	_add_player_to_game(1)
+	if not OS.has_feature("dedicated_server"):
+		_add_player_to_game(1)
 	
 func join():
 	var client_peer = ENetMultiplayerPeer.new()
