@@ -599,3 +599,4 @@ bus = &"Sfx"
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -118)
 zoom = Vector2(2, 2)
+limit_smoothed = true

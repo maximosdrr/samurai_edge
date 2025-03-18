@@ -6,7 +6,6 @@ var collisionArea: CollisionShape2D
 var hitbox: Area2D
 var timer: Timer
 var attack_duration = 0.3
-var delay_before_attack = 0.1
 
 var characters_in_attack_area: Array[Node2D] = []
 signal attack_parried_detected
@@ -60,10 +59,3 @@ func _on_hit_detected(body: Node2D):
 	for group in body.get_groups():
 		if group == 'character':
 			characters_in_attack_area.append(body)
-
-#func _on_body_outs_hitbox(body: Node2D):
-#	var aux = characters_in_attack_area
-#	characters_in_attack_area.clear()
-#	for character in aux:
-#		if body.get_instance_id() != character.get_instance_id():
-#			characters_in_attack_area.append(character)

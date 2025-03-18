@@ -1,6 +1,7 @@
 extends Node2D
 
 const SERVER_PORT = 8083
+#const SERVER_IP = "34.95.178.194"
 const SERVER_IP = "127.0.0.1"
 
 var player_scene = preload("res://Scenes/Core/player.tscn")
