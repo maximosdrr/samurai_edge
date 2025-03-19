@@ -2,7 +2,7 @@ extends BaseCharacter
 
 class_name Player
 
-var jump_force = -300
+var jump_force = -250
 var speed = 200
 var attack_damage = 300
 var health = 1000
@@ -12,20 +12,19 @@ var health = 1000
 		player_id = id
 		%InputSyncronizer.set_multiplayer_authority(id)
 
-var do_jump = false
-var _is_on_floor = true
-var do_dash = false
-var _current_state = CharacterState.States.IDLE
-var _asset_direction = CharacterState.Direction.Left
-var do_attack = false
-var do_parry = false
-var player_is_dead = false
-var player_hp = 0
-@export var sfx_to_play = ""
+@export var _action_queue: Array[Dictionary]:
+	get:
+		return self.action_queue.queue
+
+@export var _state: CharacterState.States:
+	get:
+		return self.state.current_state
 
 @onready var camera: Camera2D = $Camera2D
+
 var playerCameraShaker: PlayerCameraShaker
 var self_attack: CharacterAttack
+var action_queue: PlayerActionQueue
 
 func _init():
 	super(jump_force, speed, attack_damage, health)
@@ -33,73 +32,27 @@ func _init():
 func _ready():
 	super._ready()
 	PlayerCameraShaker.new(self, camera)
-	
-	self.state.character_state_change.connect(_update_state)
-	self.state.character_direction_change.connect(_update_asset_direction)
-	self.attributes.health_decrease.connect(_decrease_hp)
-	self.audio_player.sound_to_play.connect(_update_sound_to_play)
-	
-	self.player_hp = self.attributes.health
-	
+	self.action_queue = PlayerActionQueue.new()
+
 	if multiplayer.get_unique_id() == player_id:
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
 
-func play_sound():
-	var sound: AudioStreamPlayer2D = self.audio_player.get(self.sfx_to_play) 
-	%InputSyncronizer.play_sound(self.sfx_to_play)
-	sound.play()
-	
-	if not sound.finished.is_connected(clear_sound_to_play):
-		sound.finished.connect(clear_sound_to_play)
-
-func clear_sound_to_play():
-	self.sfx_to_play = ""
-	
-func _update_sound_to_play(sound: String):
-	self.sfx_to_play = sound
-
-func _decrease_hp(amount):
-	player_hp -= amount
-
-func _update_asset_direction(direction):
-	_asset_direction = direction
-	
-func _update_state(state):
-	_current_state = state
-	
 
 func _physics_process(delta: float) -> void:
+	movement.add_gravity(delta)
+	
 	if not multiplayer.is_server():
 		return
-	
-	movement.add_gravity(delta);
-	var direction = %InputSyncronizer.input_direction
-	movement.move_x(direction)
-	
-	if do_jump and self.is_on_floor():
-		movement.jump(delta)
-		do_jump = false
-	
-	if do_dash and self.is_on_floor():
-		dash.dash()
-		do_dash = false
-	
-func _process(delta):
-	if multiplayer.is_server() || not MultiplayerManager.host_mode_enabled:
-		self.animator.flip_sprite(_asset_direction)
-		self.animator.play_animation(_current_state)
 		
-		if player_is_dead:
-			self.die.execute()
-		if sfx_to_play != "":
-			play_sound()
-		
-	if do_attack and is_multiplayer_authority():
-		attack.attack()
-		do_attack = false
-		
-	if do_parry and is_multiplayer_authority():
-		parry.parry()
-		do_parry = false
+	if _action_queue.size() == 0:
+		self.movement.stop()
+	
+	for action in _action_queue:
+		match action["action"]:
+			PlayerActionQueue.ActionEnum.JUMP:
+				self.movement.jump(action["args"][0])
+			PlayerActionQueue.ActionEnum.RUN:
+				self.movement.move_x(action["args"][0])
+		self.action_queue.dequeue()

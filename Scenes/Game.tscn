@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckdpkmqsa3xj7"]
 
 [ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Core/Scenario.tscn" id="1_gl6un"]
-[ext_resource type="Script" uid="uid://dnihogiwmjbd2" path="res://Scripts/Multiplayer/GameManager.gd" id="1_kldst"]
+[ext_resource type="Script" uid="uid://dnihogiwmjbd2" path="res://Scripts/Multiplayer/MultiplayerHudManager.gd" id="1_kldst"]
 [ext_resource type="AudioStream" uid="uid://bhiwof6m36adk" path="res://Assets/Audio/Themes/battle_theme.ogg" id="2_j5yw3"]
 [ext_resource type="FontFile" uid="uid://dq3tvi46fx3gt" path="res://Assets/Fonts/kirifont/KiriFont.otf" id="4_kldst"]
 

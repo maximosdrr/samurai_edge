@@ -40,6 +40,7 @@ func jump(delta: float):
 func add_gravity(delta: float):
 	if not character.is_on_floor():
 		character.velocity += character.get_gravity()  * delta
+		character.move_and_slide()
 
 func stop():
 	if movimentation_is_blocked: return
