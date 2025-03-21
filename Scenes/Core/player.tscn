@@ -1,9 +1,7 @@
-[gd_scene load_steps=90 format=3 uid="uid://cw07r2ik6qxq3"]
+[gd_scene load_steps=87 format=3 uid="uid://cw07r2ik6qxq3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6e56hnnwf7t" path="res://Assets/Characters/Character2/ATTACK1.png" id="1_cvnsp"]
-[ext_resource type="Script" uid="uid://bktpct4a7mh0d" path="res://Scripts/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://bvqkf3kxw1til" path="res://Assets/Characters/Character2/IDLE.png" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://ylg2q2sxj2jj" path="res://Scripts/Multiplayer/multiplayer_input.gd" id="2_icxwe"]
 [ext_resource type="Texture2D" uid="uid://dkmpcwglnvlse" path="res://Assets/Characters/Character2/ATTACK3.png" id="3_8erm5"]
 [ext_resource type="Texture2D" uid="uid://4g0sqiiaefca" path="res://Assets/Characters/Character2/DEATH.png" id="3_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://coe78t3b3tm7t" path="res://Assets/Characters/Character2/JUMP.png" id="4_fkybt"]
@@ -24,54 +22,47 @@
 [ext_resource type="AudioStream" uid="uid://8taihhcufy2d" path="res://Assets/Audio/Hurt/hurt_4.wav" id="21_2ijsl"]
 [ext_resource type="AudioStream" uid="uid://birfetbrtpitc" path="res://Assets/Audio/Dash/dash.wav" id="22_wpjfl"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icxwe"]
-properties/0/path = NodePath(".:player_id")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:do_jump")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:_is_on_floor")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:do_dash")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath(".:_current_state")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath(".:_asset_direction")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath(".:do_attack")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath(".:do_parry")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath("HurtBox:disabled")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath("HitBox/Area:disabled")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath(".:player_is_dead")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath(".:player_hp")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath(".:sfx_to_play")
-properties/13/spawn = true
-properties/13/replication_mode = 1
+[sub_resource type="GDScript" id="GDScript_k1708"]
+script/source = "extends BaseCharacter
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_urksf"]
-properties/0/path = NodePath("InputSyncronizer:input_direction")
-properties/0/spawn = true
-properties/0/replication_mode = 1
+
+var jump_force = -250
+var speed = 200
+var attack_damage = 10
+var health = 1000
+
+@onready var camera: Camera2D = $Camera2D
+var playerCameraShaker: PlayerCameraShaker
+var self_attack: CharacterAttack
+
+func _init():
+	super(jump_force, speed, attack_damage, health)
+
+func _handle_parry_attack1():
+	print(\"Character have died\")
+
+func _ready():
+	super._ready()
+	PlayerCameraShaker.new(self, camera)
+
+func _physics_process(delta: float) -> void:
+	var direction := Input.get_axis(\"move_left\", \"move_right\")
+
+	movement.add_gravity(delta);
+	movement.move_x(direction)
+
+	if Input.is_action_just_pressed(\"jump\") and self.is_on_floor():
+		movement.jump(delta)
+
+	if Input.is_action_just_pressed(\"dash\") and self.is_on_floor():
+		dash.dash()
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"attack\"):
+		attack.attack()
+	if Input.is_action_just_pressed(\"parry\"):
+		parry.parry()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("1_cvnsp")
@@ -548,15 +539,7 @@ stream_0/stream = ExtResource("22_wpjfl")
 
 [node name="Player" type="CharacterBody2D" groups=["character"]]
 z_index = 1000
-script = ExtResource("1_fkybt")
-
-[node name="PlayerSyncronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_icxwe")
-
-[node name="InputSyncronizer" type="MultiplayerSynchronizer" parent="."]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_urksf")
-script = ExtResource("2_icxwe")
+script = SubResource("GDScript_k1708")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")

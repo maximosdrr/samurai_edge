@@ -1,12 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckdpkmqsa3xj7"]
 
 [ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Core/Scenario.tscn" id="1_gl6un"]
-[ext_resource type="Script" uid="uid://dnihogiwmjbd2" path="res://Scripts/Multiplayer/GameManager.gd" id="1_kldst"]
 [ext_resource type="AudioStream" uid="uid://bhiwof6m36adk" path="res://Assets/Audio/Themes/battle_theme.ogg" id="2_j5yw3"]
-[ext_resource type="FontFile" uid="uid://dq3tvi46fx3gt" path="res://Assets/Fonts/kirifont/KiriFont.otf" id="4_kldst"]
+[ext_resource type="PackedScene" uid="uid://cw07r2ik6qxq3" path="res://Scenes/Core/player.tscn" id="3_j5yw3"]
+[ext_resource type="PackedScene" uid="uid://dbwjplicsh3u2" path="res://Scenes/Core/Enemy.tscn" id="4_kldst"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_kldst")
 
 [node name="Map" parent="." instance=ExtResource("1_gl6un")]
 
@@ -14,76 +13,9 @@ script = ExtResource("1_kldst")
 stream = ExtResource("2_j5yw3")
 bus = &"Music"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 100
-position = Vector2(632, -135)
-zoom = Vector2(2, 2)
+[node name="Player" parent="." instance=ExtResource("3_j5yw3")]
+position = Vector2(211, -28)
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://cw07r2ik6qxq3")
-spawn_path = NodePath("../SpawnPoint")
-spawn_limit = 10
-
-[node name="MultiplayerHud" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Join" type="Button" parent="MultiplayerHud"]
-z_index = 100
-layout_mode = 0
-offset_left = 357.0
-offset_top = -242.0
-offset_right = 429.0
-offset_bottom = -211.0
-theme_override_fonts/font = ExtResource("4_kldst")
-theme_override_font_sizes/font_size = 12
-text = "Entrar"
-
-[node name="BecomeHost" type="Button" parent="MultiplayerHud"]
-z_index = 100
-layout_mode = 0
-offset_left = 358.0
-offset_top = -280.0
-offset_right = 435.0
-offset_bottom = -249.0
-theme_override_fonts/font = ExtResource("4_kldst")
-theme_override_font_sizes/font_size = 12
-text = "Hostear"
-
-[node name="CreateLobby" type="Button" parent="MultiplayerHud"]
-visible = false
-z_index = 100
-layout_mode = 0
-offset_left = 360.0
-offset_top = -288.0
-offset_right = 426.0
-offset_bottom = -257.0
-theme_override_fonts/font = ExtResource("4_kldst")
-theme_override_font_sizes/font_size = 12
-text = "Criar"
-
-[node name="LobbyCode" type="LineEdit" parent="MultiplayerHud"]
-visible = false
-z_index = 100
-layout_mode = 0
-offset_left = 360.0
-offset_top = -224.0
-offset_right = 432.0
-offset_bottom = -193.0
-placeholder_text = "Codigo"
-
-[node name="CodeLabel" type="Label" parent="MultiplayerHud"]
-z_index = 100
-layout_mode = 0
-offset_left = 640.0
-offset_top = -104.0
-offset_right = 680.0
-offset_bottom = -81.0
-
-[node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2(524, -71)
-
-[connection signal="pressed" from="MultiplayerHud/Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="MultiplayerHud/BecomeHost" to="." method="_on_become_host_pressed"]
+[node name="Enemy" parent="." instance=ExtResource("4_kldst")]
+z_index = 1000
+position = Vector2(474, -41)

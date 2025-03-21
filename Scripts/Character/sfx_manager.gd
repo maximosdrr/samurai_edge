@@ -24,11 +24,9 @@ func _init(character: BaseCharacter):
 	self.hurt = sfx_node.get_node("Hurt")
 	self.dash = sfx_node.get_node("Dash")
 	
-func play_without_emit(sfx_name: String):
+func play(sfx_name: String):
 	var sound = self.get(sfx_name) as AudioStreamPlayer2D
 	sound.play()
-	
-func play(sfx_name: String):
 	sound_to_play.emit(sfx_name)
 
 func stop(sfx_name: String):
