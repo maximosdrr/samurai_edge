@@ -10,26 +10,25 @@ func _ready() -> void:
 		
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
+	
 	if direction != 0:
-		move_x.rpc(direction)
+		_send_action.rpc(PlayerActionQueue.ActionEnum.RUN, [direction])
+	else:
+		_send_action.rpc(PlayerActionQueue.ActionEnum.IDLE, [])
 	
 	if Input.is_action_just_pressed("jump"):
-		jump.rpc(delta)
-		
-func _process(delta: float) -> void:
-	change_state.rpc(player.state.current_state)
+		_send_action.rpc(PlayerActionQueue.ActionEnum.JUMP, [delta])
+	
+	if Input.is_action_just_pressed("attack"):
+		_send_action.rpc(PlayerActionQueue.ActionEnum.ATTACK, [])
+	
+	if Input.is_action_just_pressed("dash"):
+		_send_action.rpc(PlayerActionQueue.ActionEnum.DASH, [])
+	
+	if Input.is_action_just_pressed("parry"):
+		_send_action.rpc(PlayerActionQueue.ActionEnum.PARRY, [])
 
 @rpc("call_local", "reliable")
-func jump(delta):
+func _send_action(action, params, avoid_duplicated_entry = true):
 	if multiplayer.is_server():
-		player.action_queue.enqueue(PlayerActionQueue.ActionEnum.JUMP, [delta], true)
-
-@rpc("call_local")
-func move_x(direction):
-	if multiplayer.is_server():
-		player.action_queue.enqueue(PlayerActionQueue.ActionEnum.RUN, [direction], true)
-
-@rpc("call_local")
-func change_state(new_state):
-	if multiplayer.is_server():
-		player._state = new_state
+		player.action_queue.enqueue(action, params, avoid_duplicated_entry)
