@@ -18,6 +18,7 @@ var health = 1000
 
 @export var _state: CharacterState.States
 @export var _direction: CharacterState.Direction
+@export var _sfx_to_play = ""
 @onready var camera: Camera2D = $Camera2D
 
 var playerCameraShaker: PlayerCameraShaker
@@ -33,12 +34,21 @@ func _handle_state_change(new_state):
 
 func _handle_change_direction(new_direction):
 	_direction = new_direction
+
+func _handle_play_sound():
+	if _sfx_to_play != "":
+		self.audio_player.play_without_emit(_sfx_to_play)
+		_sfx_to_play = ""
+
+func _handle_update_sfx(sfx):
+	_sfx_to_play = sfx
 	
 func _ready():
 	super._ready()
 	PlayerCameraShaker.new(self, camera)
 	self.state.character_state_change.connect(_handle_state_change)
 	self.state.character_direction_change.connect(_handle_change_direction)
+	self.audio_player.sound_to_play.connect(_handle_update_sfx)
 	self.action_queue = PlayerActionQueue.new()
 
 	if multiplayer.get_unique_id() == player_id:
@@ -50,7 +60,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	self.animator.play_animation(_state)
 	self.animator.flip_sprite(_direction)
-	
+	_handle_play_sound()
 	movement.add_gravity(delta)
 	
 	if not multiplayer.is_server():
