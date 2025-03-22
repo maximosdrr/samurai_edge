@@ -1,19 +1,16 @@
 extends Node2D
 
 const SERVER_PORT = 8083
-#const SERVER_IP = "34.95.178.194"
-const SERVER_IP = "127.0.0.1"
 
 var player_scene = preload("res://Scenes/Core/player.tscn")
 var _players_spawn_node: Node2D
 var host_mode_enabled = false
+var SERVER_IP = ""
 
 func become_host():
-	print("start hosting!")
+	print("start hosting!", get_tree().get_current_scene())
 	
 	_players_spawn_node = get_tree().get_current_scene().get_node("SpawnPoint")
-	
-	host_mode_enabled = true
 	
 	var server_peer = ENetMultiplayerPeer.new()
 	server_peer.create_server(SERVER_PORT)
