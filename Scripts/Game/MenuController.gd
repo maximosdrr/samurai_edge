@@ -87,7 +87,7 @@ func _on_create_pressed() -> void:
 func _on_join_pressed() -> void:
 	if join_game_code.text != "":
 		var error = get_tree().change_scene_to_file("res://Scenes/Game.tscn")
-		MultiplayerManager.SERVER_IP = room_code
+		MultiplayerManager.SERVER_IP = join_game_code.text
 		MultiplayerManager.host_mode_enabled = false
 		
 		if error != OK:

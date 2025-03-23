@@ -7,9 +7,18 @@ var _players_spawn_node: Node2D
 var host_mode_enabled = false
 var SERVER_IP = ""
 
+func _ready() -> void:
+	if OS.has_feature("dedicated_server"):
+		call_deferred("_load_game_scene")
+
+func _load_game_scene():
+	var error = get_tree().change_scene_to_file("res://Scenes/Game.tscn")
+	if error != OK:
+		print("Erro ao trocar de cena:", error)
+
 func become_host():
 	print("start hosting!", get_tree().get_current_scene())
-	
+	print(get_tree().get_current_scene().name)
 	_players_spawn_node = get_tree().get_current_scene().get_node("SpawnPoint")
 	
 	var server_peer = ENetMultiplayerPeer.new()

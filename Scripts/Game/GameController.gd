@@ -1,8 +1,11 @@
 extends Node
 
 func _ready() -> void:
-	if MultiplayerManager.host_mode_enabled:
+	if OS.has_feature("dedicated_server"):
 		MultiplayerManager.become_host()
 	else:
-		MultiplayerManager.join()
+		if MultiplayerManager.host_mode_enabled:
+			MultiplayerManager.become_host()
+		else:
+			MultiplayerManager.join()
 		
