@@ -5,7 +5,7 @@ const SERVER_PORT = 8083
 var player_scene = preload("res://Scenes/Core/player.tscn")
 var _players_spawn_node: Node2D
 var host_mode_enabled = false
-var SERVER_IP = ""
+var SERVER_IP = "127.0.0.1"
 
 func _ready() -> void:
 	if OS.has_feature("dedicated_server"):

@@ -43,4 +43,4 @@ offset_right = 112.0
 offset_bottom = 121.0
 
 [connection signal="pressed" from="Control/CreateRoom" to="." method="_on_create_room_pressed"]
-[connection signal="item_clicked" from="Control/RoomList" to="." method="_on_room_list_item_clicked"]
+[connection signal="item_selected" from="Control/RoomList" to="." method="_on_room_list_item_selected"]

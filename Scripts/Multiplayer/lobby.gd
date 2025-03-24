@@ -7,8 +7,12 @@ extends Node2D
 
 var game_scene = preload("res://Scenes/Game.tscn")
 var game_wrapper = preload("res://Scenes/GameWrapper.tscn")
+var game_wrapper_instance
 
 var rooms: Array[String] = []
+
+func _ready() -> void:
+	game_wrapper_instance = game_wrapper.instantiate()
 
 func _on_create_room_pressed():
 	var room_code = MultiplayerUtils.generate_room_code()
@@ -25,7 +29,8 @@ func _add_new_room():
 	
 	var game_to_add = game_scene.instantiate()
 	game_to_add.name = room_to_be_created
-	game_wrapper.add_child(game_to_add)
+	game_wrapper_instance.add_child(game_to_add)
 
-func _on_room_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+
+func _on_room_list_item_selected(index: int) -> void:
 	print(rooms[index])
