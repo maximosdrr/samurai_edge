@@ -20,6 +20,7 @@ var health = 1000
 @export var _direction: CharacterState.Direction
 @export var _sfx_to_play = ""
 @onready var camera: Camera2D = $Camera2D
+@export var player_is_on_floor = true
 
 var playerCameraShaker: PlayerCameraShaker
 var self_attack: CharacterAttack
@@ -62,12 +63,14 @@ func _physics_process(delta: float) -> void:
 	self.animator.flip_sprite(_direction)
 	_handle_play_sound()
 	movement.add_gravity(delta)
+	player_is_on_floor = is_on_floor()
 	
 	if not multiplayer.is_server():
 		return
 	for action in _action_queue:
 		match action["action"]:
 			PlayerActionQueue.ActionEnum.JUMP:
+				if not player_is_on_floor: return
 				self.movement.jump(action["args"][0])
 			PlayerActionQueue.ActionEnum.RUN:
 				self.movement.move_x(action["args"][0])

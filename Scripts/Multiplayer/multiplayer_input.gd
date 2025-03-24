@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_send_action.rpc(PlayerActionQueue.ActionEnum.IDLE, [])
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and player.player_is_on_floor:
 		_send_action.rpc(PlayerActionQueue.ActionEnum.JUMP, [delta])
 	
 	if Input.is_action_just_pressed("attack"):
