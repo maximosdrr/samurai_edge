@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceu1xkw0pd62h"]
+
+[ext_resource type="Script" uid="uid://c7fjehx2pvs7p" path="res://Scripts/Multiplayer/lobby.gd" id="1_lolwk"]
+[ext_resource type="PackedScene" uid="uid://c23tmfj3brgf0" path="res://Scenes/Core/Scenario.tscn" id="2_wgubu"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lolwk"]
+properties/0/path = NodePath(".:room_to_be_created")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_lolwk")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lolwk")
+
+[node name="Map" parent="." instance=ExtResource("2_wgubu")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 100
+position = Vector2(687, -138)
+zoom = Vector2(2, 2)
+
+[node name="Control" type="Control" parent="."]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = 408.0
+offset_top = -281.0
+offset_right = 608.0
+offset_bottom = -152.0
+
+[node name="CreateRoom" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 129.0
+offset_right = 112.0
+offset_bottom = 160.0
+text = "Create Room"
+
+[node name="RoomList" type="ItemList" parent="Control"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 121.0
+
+[connection signal="pressed" from="Control/CreateRoom" to="." method="_on_create_room_pressed"]
+[connection signal="item_clicked" from="Control/RoomList" to="." method="_on_room_list_item_clicked"]
